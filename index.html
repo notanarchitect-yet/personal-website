@@ -16,36 +16,34 @@
       line-height: 1.7;
       background-color: #fff;
       color: #111;
+      padding: 0 30px;
     }
     .header {
-      padding: 2rem;
-      border-bottom: 1px solid #ddd;
-      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
       font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .header .social a {
+      margin-left: 2rem;
+      color: #111;
+      text-decoration: none;
+    }
+    .header .social a:hover {
+      text-decoration: underline;
     }
     .container {
       display: flex;
       justify-content: space-between;
-      padding: 3rem;
+      padding: 3rem 0;
     }
     .content {
       width: 70%;
     }
-    .sidebar {
-      width: 20%;
-      text-align: right;
-    }
-    .sidebar a {
-      display: block;
-      margin-bottom: 1rem;
-      color: #111;
-      text-decoration: none;
-    }
-    .sidebar a:hover {
-      text-decoration: underline;
-    }
     .archive {
-      padding: 3rem;
+      padding: 3rem 0;
       font-size: 0.95rem;
     }
     .archive a {
@@ -56,31 +54,37 @@
       text-decoration: underline;
     }
     @media (max-width: 768px) {
+      body {
+        padding: 0 20px;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
       .container {
         flex-direction: column;
-        padding: 2rem;
       }
-      .content, .sidebar {
+      .content {
         width: 100%;
         text-align: left;
-      }
-      .sidebar {
-        margin-top: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">Mattia De Lotto</div>
+  <div class="header">
+    <div>Mattia De Lotto</div>
+    <div class="social">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
 
   <div class="container">
     <div class="content">
       <p>Mattia De Lotto is an Italian designer currently based in the Netherlands. He holds a Bachelor of Architecture from Iuav University of Venice and is currently pursuing his Master degree at the Faculty of Architecture at TU Delft.</p>
-    </div>
-    <div class="sidebar">
-      <a href="#">Instagram →</a>
-      <a href="#">LinkedIn →</a>
-      <a href="#">Contact →</a>
     </div>
   </div>
 
