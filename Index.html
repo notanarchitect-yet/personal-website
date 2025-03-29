@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mattia De Lotto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      line-height: 1.7;
+      background-color: #fff;
+      color: #111;
+    }
+    .header {
+      padding: 2rem;
+      border-bottom: 1px solid #ddd;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 3rem;
+    }
+    .content {
+      width: 70%;
+    }
+    .sidebar {
+      width: 20%;
+      text-align: right;
+    }
+    .sidebar a {
+      display: block;
+      margin-bottom: 1rem;
+      color: #111;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+    .archive {
+      padding: 3rem;
+      font-size: 0.95rem;
+    }
+    .archive a {
+      text-decoration: none;
+      color: #111;
+    }
+    .archive a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 2rem;
+      }
+      .content, .sidebar {
+        width: 100%;
+        text-align: left;
+      }
+      .sidebar {
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Mattia De Lotto</div>
+
+  <div class="container">
+    <div class="content">
+      <p>Mattia De Lotto is an Italian designer currently based in the Netherlands. He holds a Bachelor of Architecture from Iuav University of Venice and is currently pursuing his Master degree at the Faculty of Architecture at TU Delft.</p>
+    </div>
+    <div class="sidebar">
+      <a href="#">Instagram →</a>
+      <a href="#">LinkedIn →</a>
+      <a href="#">Contact →</a>
+    </div>
+  </div>
+
+  <div class="archive">
+    <a href="#">→ Archive</a>
+  </div>
+</body>
+</html>
