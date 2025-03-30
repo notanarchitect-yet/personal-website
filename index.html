@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>info – mattia de lotto</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
   <style>
     * {
       box-sizing: border-box;
@@ -54,7 +54,7 @@
       transform: rotate(0deg);
     }
     .social a:hover .arrow-icon img {
-      transform: rotate(45deg);
+      transform: rotate(90deg);
     }
 
     /* Archive link */
@@ -62,7 +62,7 @@
       transform: rotate(0deg);
     }
     .archive a:hover .arrow-icon img {
-      transform: rotate(45deg);
+      transform: rotate(180deg);
     }
 
     .wrapper {
@@ -147,9 +147,16 @@
         <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank" rel="noopener noreferrer">
           LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
         </a>
-        <a href="mailto:your@email.com">
+        <a id="email-link">
           Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
         </a>
+        <script>
+          const u = "hello";
+          const d = "mattiadelotto";
+          const ext = "com";
+          const link = document.getElementById("email-link");
+          link.href = `mailto:${u}.${d}@gmail.${ext}`;
+        </script>
       </div>
     </div>
 
