@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mattia De Lotto</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     * {
       box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
     }
     body {
       margin: 0;
@@ -26,6 +30,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: color 0.2s ease;
+    }
+    a:hover {
+      color: #555;
     }
     .arrow-icon {
       width: 18px;
@@ -37,16 +45,25 @@
       stroke: #111;
       stroke-width: 1.5;
       fill: none;
+      transition: transform 0.2s ease;
     }
     .archive .arrow-icon svg {
       transform: rotate(45deg);
       transform-origin: center;
     }
+    a:hover .arrow-icon svg {
+      transform: rotate(45deg) translate(2px, -2px);
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
     .header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 2rem 0;
+      padding: 2rem 0 1rem;
       font-size: 1rem;
       font-weight: 300;
     }
@@ -61,13 +78,14 @@
     .container {
       display: flex;
       justify-content: space-between;
-      padding: 3rem 0;
+      padding: 1rem 0;
     }
     .content {
       width: 70%;
     }
     .archive {
-      padding: 3rem 0;
+      margin-top: auto;
+      padding: 1rem 0 2rem;
       font-size: 1rem;
     }
     @media (max-width: 768px) {
@@ -78,9 +96,11 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+        padding-top: 1.5rem;
       }
       .container {
         flex-direction: column;
+        padding-top: 0.5rem;
       }
       .content {
         width: 100%;
@@ -90,34 +110,49 @@
         align-items: flex-start;
       }
     }
+    @media (min-width: 1024px) {
+      body {
+        line-height: 1.5;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div>Mattia De Lotto</div>
-    <div class="social">
-      <a href="#">Instagram<span class="arrow-icon">
-        <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-      </span></a>
-      <a href="#">LinkedIn<span class="arrow-icon">
-        <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-      </span></a>
-      <a href="#">Contact<span class="arrow-icon">
-        <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-      </span></a>
+  <div class="wrapper">
+    <div class="header">
+      <div>Mattia De Lotto</div>
+      <div class="social">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          Instagram<span class="arrow-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
+          </span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+          LinkedIn<span class="arrow-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
+          </span>
+        </a>
+        <a href="mailto:your@email.com">
+          Contact<span class="arrow-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
+          </span>
+        </a>
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="content">
-      <p>Mattia De Lotto is an Italian designer currently based in the Netherlands. He holds a Bachelor of Architecture from Iuav University of Venice and is currently pursuing his Master degree at the Faculty of Architecture at TU Delft.</p>
+    <div class="container">
+      <div class="content">
+        <p>Mattia De Lotto is an Italian designer currently based in the Netherlands. He holds a Bachelor of Architecture from Iuav University of Venice and is currently pursuing his Master degree at the Faculty of Architecture at TU Delft.</p>
+      </div>
     </div>
-  </div>
 
-  <div class="archive">
-    <a href="#">Archive<span class="arrow-icon">
-      <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-    </span></a>
+    <div class="archive">
+      <a href="#" target="_blank" rel="noopener noreferrer">
+        Archive<span class="arrow-icon">
+          <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
+        </span>
+      </a>
+    </div>
   </div>
 </body>
 </html>
