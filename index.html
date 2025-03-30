@@ -175,17 +175,11 @@
 
     <div class="catalogue" id="catalogue">
   <div class="table-row table-head">
-  <div onclick="sortTable(0)" style="cursor:pointer;">Code <span id="arrow-0"></span></div>
-  <div onclick="sortTable(1)" style="cursor:pointer;">Title <span id="arrow-1"></span></div>
-  <div onclick="sortTable(2)" style="cursor:pointer;">Type <span id="arrow-2"></span></div>
-  <div onclick="sortTable(3)" style="cursor:pointer;">Year <span id="arrow-3"></span></div>
-  <div onclick="sortTable(4)" style="cursor:pointer;">Context <span id="arrow-4"></span></div>
-</div>
-    <div onclick="sortTable(1)" style="cursor:pointer;">Title</div>
-    <div onclick="sortTable(2)" style="cursor:pointer;">Type</div>
-    <div onclick="sortTable(3)" style="cursor:pointer;">Year</div>
-    <div onclick="sortTable(4)" style="cursor:pointer;">Context</div>
-    <div>Code</div><div>Title</div><div>Type</div><div>Year</div><div>Context</div>
+    <div onclick="sortTable(0)" style="cursor:pointer;">Code <span id="arrow-0"></span></div>
+    <div onclick="sortTable(1)" style="cursor:pointer;">Title <span id="arrow-1"></span></div>
+    <div onclick="sortTable(2)" style="cursor:pointer;">Type <span id="arrow-2"></span></div>
+    <div onclick="sortTable(3)" style="cursor:pointer;">Year <span id="arrow-3"></span></div>
+    <div onclick="sortTable(4)" style="cursor:pointer;">Context <span id="arrow-4"></span></div>
   </div>
   <div class="table-row"><div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div></div>
   <div class="table-row"><div>002</div><div>Palimpsest Tower</div><div>Pavilion</div><div>2020</div><div>Competition</div></div>
@@ -199,8 +193,43 @@
   <div class="table-row"><div>010</div><div>The (im)possible palimpsest</div><div>Research on Piranesi's Campo Marzio</div><div>2024</div><div>Academic (TU Delft)</div></div>
   <div class="table-row"><div>011</div><div>Post-extraction scenarios</div><div>Underground mine</div><div>2024</div><div>Academic (TU Delft)</div></div>
   <div class="table-row"><div>012</div><div>Transfigurations</div><div>Master Thesis</div><div>2024-ongoing</div><div>Academic (TU Delft)</div></div>
+</div>
 
 <script>
+function toggleArchive() {
+  document.body.classList.toggle('collapsed');
+  document.querySelector('.archive').classList.toggle('active');
+  document.getElementById('catalogue').classList.toggle('active');
+}
+
+let currentSort = { column: null, ascending: true };
+function sortTable(colIndex) {
+  const table = document.getElementById('catalogue');
+  const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
+
+  if (currentSort.column === colIndex) {
+    currentSort.ascending = !currentSort.ascending;
+  } else {
+    currentSort.column = colIndex;
+    currentSort.ascending = true;
+  }
+
+  const sorted = rows.sort((a, b) => {
+    const aText = a.children[colIndex].textContent.trim().toLowerCase();
+    const bText = b.children[colIndex].textContent.trim().toLowerCase();
+    return currentSort.ascending
+      ? aText.localeCompare(bText, undefined, { numeric: true })
+      : bText.localeCompare(aText, undefined, { numeric: true });
+  });
+
+  sorted.forEach(row => table.appendChild(row));
+
+  for (let i = 0; i < 5; i++) {
+    const arrow = document.getElementById(`arrow-${i}`);
+    arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
+  }
+}
+</script>
 function toggleArchive() {
   document.body.classList.toggle('collapsed');
   document.querySelector('.archive').classList.toggle('active');
