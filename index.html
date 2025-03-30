@@ -196,81 +196,8 @@
 </div>
 
 <script>
-function toggleArchive() {
-  document.body.classList.toggle('collapsed');
-  document.querySelector('.archive').classList.toggle('active');
-  document.getElementById('catalogue').classList.toggle('active');
-}
+<script>
 
-let currentSort = { column: null, ascending: true };
-function sortTable(colIndex) {
-  const table = document.getElementById('catalogue');
-  const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
-
-  if (currentSort.column === colIndex) {
-    currentSort.ascending = !currentSort.ascending;
-  } else {
-    currentSort.column = colIndex;
-    currentSort.ascending = true;
-  }
-
-  const sorted = rows.sort((a, b) => {
-    const aText = a.children[colIndex].textContent.trim().toLowerCase();
-    const bText = b.children[colIndex].textContent.trim().toLowerCase();
-    return currentSort.ascending
-      ? aText.localeCompare(bText, undefined, { numeric: true })
-      : bText.localeCompare(aText, undefined, { numeric: true });
-  });
-
-  sorted.forEach(row => table.appendChild(row));
-
-  for (let i = 0; i < 5; i++) {
-    const arrow = document.getElementById(`arrow-${i}`);
-    arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
-  }
-}
-</script>
-function toggleArchive() {
-  document.body.classList.toggle('collapsed');
-  document.querySelector('.archive').classList.toggle('active');
-  document.getElementById('catalogue').classList.toggle('active');
-}
-
-let currentSort = { column: null, ascending: true };
-function sortTable(colIndex) {
-  const table = document.getElementById('catalogue');
-  const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
-
-  // toggle sort direction
-  if (currentSort.column === colIndex) {
-    currentSort.ascending = !currentSort.ascending;
-  } else {
-    currentSort.column = colIndex;
-    currentSort.ascending = true;
-  }
-
-  const sorted = rows.sort((a, b) => {
-    const aText = a.children[colIndex].textContent.trim().toLowerCase();
-    const bText = b.children[colIndex].textContent.trim().toLowerCase();
-    const comparison = aText.localeCompare(bText, undefined, { numeric: true });
-    return currentSort.ascending ? comparison : -comparison;
-  });
-
-  sorted.forEach(row => table.appendChild(row));
-
-  // update arrows
-  for (let i = 0; i < 5; i++) {
-    const arrow = document.getElementById(`arrow-${i}`);
-    if (i === colIndex) {
-      arrow.textContent = currentSort.ascending ? '↑' : '↓';
-    } else {
-      arrow.textContent = '';
-    }
-  }
-});
-  });
-  sorted.forEach(row => table.appendChild(row));
-}
 </script>
 </div>
 </body>
