@@ -44,6 +44,7 @@
       transform-origin: center;
       display: block;
     }
+
     .social .arrow-icon img,
     .archive .arrow-icon img {
       transform: rotate(0deg);
@@ -70,11 +71,13 @@
       font-weight: 300;
       transition: opacity 0.4s ease;
     }
+
     .header .social {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
     }
+
     .header .social a { margin-bottom: 0.5rem; }
     .container { display: flex; padding: 1rem 0; }
     .content { width: 70%; }
@@ -90,42 +93,49 @@
       bottom: 2rem;
       left: 30px;
     }
-    .archive.collapsed-position {
+
+    .collapsed .archive {
       position: static;
-      padding-top: 2rem;
+      padding-top: 1rem;
     }
 
     .catalogue {
       display: none;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s ease;
       padding-bottom: 3rem;
       width: 100%;
     }
-    .catalogue.active { display: block; animation: fadeIn 0.6s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .catalogue.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
+
     .table-row {
       display: grid;
       grid-template-columns: 1fr 4fr 2fr 1fr;
       padding: 0.5rem 0;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #111;
     }
+
     .table-head {
       font-weight: 400;
-      border-top: 1px solid #111;
-      border-bottom: 2px solid #111;
-      margin-top: 1rem;
     }
 
     .collapsed .container,
     .collapsed .social a:not(#email-link) { display: none; }
-    .collapsed .catalogue { display: block; }
-    .collapsed .archive { position: static; padding-top: 2rem; }
 
     @media (max-width: 768px) {
       body { padding: 0 20px; }
-      .header { flex-direction: column; align-items: flex-start; gap: 1rem; padding-top: 1.5rem; }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding-top: 1.5rem;
+      }
       .container { flex-direction: column; padding-top: 0.5rem; }
       .content { width: 100%; text-align: left; }
       .header .social { align-items: flex-start; }
