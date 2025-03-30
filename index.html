@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>info – mattia de lotto</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="favicon.png" />
+ <link rel="icon" type="image/png" href="img/favicon.png" />
   <style>
     * {
       box-sizing: border-box;
@@ -35,30 +35,42 @@
     a:hover {
       color: #555;
     }
+
     .arrow-icon {
       width: 18px;
       height: 18px;
     }
-    .arrow-icon svg {
+
+    .arrow-icon img {
       width: 100%;
       height: 100%;
-      stroke: #111;
-      stroke-width: 1.5;
-      fill: none;
       transition: transform 0.2s ease;
-    }
-    .archive .arrow-icon svg {
-      transform: rotate(45deg);
       transform-origin: center;
+      display: block;
     }
-    a:hover .arrow-icon svg {
-      transform: rotate(45deg) translate(2px, -2px);
+
+    /* Social links */
+    .social .arrow-icon img {
+      transform: rotate(45deg);
     }
+    .social a:hover .arrow-icon img {
+      transform: rotate(90deg);
+    }
+
+    /* Archive link */
+    .archive .arrow-icon img {
+      transform: rotate(135deg);
+    }
+    .archive a:hover .arrow-icon img {
+      transform: rotate(180deg);
+    }
+
     .wrapper {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
+
     .header {
       display: flex;
       justify-content: space-between;
@@ -67,27 +79,33 @@
       font-size: 1rem;
       font-weight: 300;
     }
+
     .header .social {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
     }
+
     .header .social a {
       margin-bottom: 0.5rem;
     }
+
     .container {
       display: flex;
       justify-content: space-between;
       padding: 1rem 0;
     }
+
     .content {
       width: 70%;
     }
+
     .archive {
       margin-top: auto;
       padding: 1rem 0 2rem;
       font-size: 1rem;
     }
+
     @media (max-width: 768px) {
       body {
         padding: 0 20px;
@@ -110,6 +128,7 @@
         align-items: flex-start;
       }
     }
+
     @media (min-width: 1024px) {
       body {
         line-height: 1.5;
@@ -123,19 +142,13 @@
       <div>Mattia De Lotto</div>
       <div class="social">
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          Instagram<span class="arrow-icon">
-            <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-          </span>
+          Instagram<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
         </a>
         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-          LinkedIn<span class="arrow-icon">
-            <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-          </span>
+          LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
         </a>
         <a href="mailto:your@email.com">
-          Contact<span class="arrow-icon">
-            <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-          </span>
+          Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
         </a>
       </div>
     </div>
@@ -148,9 +161,7 @@
 
     <div class="archive">
       <a href="#" target="_blank" rel="noopener noreferrer">
-        Archive<span class="arrow-icon">
-          <svg viewBox="0 0 24 24"><path d="M7 17 L17 7 M7 7 H17 V17"/></svg>
-        </span>
+        Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="" /></span>
       </a>
     </div>
   </div>
