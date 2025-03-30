@@ -5,35 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="google-site-verification" content="ENgI7WD-wtTa4IdQ7gkVIuIx0Jh1zErVPQKcBE-H2ew" />
   <title>info – mattia de lotto</title>
-
-  <!-- Font and Favicon -->
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/img/favicon.png" />
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Personal website of Mattia De Lotto" />
-  <meta name="keywords" content="Mattia De Lotto, personal website, portfolio" />
-  <meta name="author" content="Mattia De Lotto" />
-  <link rel="canonical" href="https://mattiadelotto.com/" />
-
-  <!-- Open Graph / Facebook / LinkedIn -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="info – mattia de lotto" />
-  <meta property="og:description" content="Personal website of Mattia De Lotto" />
-  <meta property="og:url" content="https://mattiadelotto.com/" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="info – mattia de lotto" />
-  <meta name="twitter:description" content="Personal website of Mattia De Lotto" />
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: 'Source Code Pro', monospace;
@@ -43,6 +20,7 @@
       background-color: #fff;
       color: #111;
       padding: 0 30px;
+      transition: all 0.4s ease;
     }
     a {
       text-decoration: underline;
@@ -53,15 +31,12 @@
       gap: 6px;
       transition: color 0.2s ease;
     }
-    a:hover {
-      color: #555;
-    }
+    a:hover { color: #555; }
 
     .arrow-icon {
       width: 18px;
       height: 18px;
     }
-
     .arrow-icon img {
       width: 100%;
       height: 100%;
@@ -69,18 +44,13 @@
       transform-origin: center;
       display: block;
     }
-
-    .social .arrow-icon img {
-      transform: rotate(0deg);
-    }
-    .social a:hover .arrow-icon img {
-      transform: rotate(45deg);
-    }
-
+    .social .arrow-icon img,
     .archive .arrow-icon img {
       transform: rotate(0deg);
     }
-    .archive a:hover .arrow-icon img {
+    .social a:hover .arrow-icon img,
+    .archive a:hover .arrow-icon img,
+    .archive.active .arrow-icon img {
       transform: rotate(45deg);
     }
 
@@ -88,6 +58,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      position: relative;
     }
 
     .header {
@@ -97,61 +68,68 @@
       padding: 2rem 0 1rem;
       font-size: 1rem;
       font-weight: 300;
+      transition: opacity 0.4s ease;
     }
-
     .header .social {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
     }
-
-    .header .social a {
-      margin-bottom: 0.5rem;
-    }
-
-    .container {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 0;
-    }
-
-    .content {
-      width: 70%;
-    }
+    .header .social a { margin-bottom: 0.5rem; }
+    .container { display: flex; padding: 1rem 0; }
+    .content { width: 70%; }
 
     .archive {
-      margin-top: auto;
       padding: 1rem 0 2rem;
       font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      position: absolute;
+      bottom: 2rem;
+      left: 30px;
     }
+    .archive.collapsed-position {
+      position: static;
+      padding-top: 2rem;
+    }
+
+    .catalogue {
+      display: none;
+      padding-bottom: 3rem;
+      width: 100%;
+    }
+    .catalogue.active { display: block; animation: fadeIn 0.6s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 4fr 2fr 1fr;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .table-head {
+      font-weight: 400;
+      border-top: 1px solid #111;
+      border-bottom: 2px solid #111;
+      margin-top: 1rem;
+    }
+
+    .collapsed .container,
+    .collapsed .social a:not(#email-link) { display: none; }
+    .collapsed .catalogue { display: block; }
+    .collapsed .archive { position: static; padding-top: 2rem; }
 
     @media (max-width: 768px) {
-      body {
-        padding: 0 20px;
-      }
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        padding-top: 1.5rem;
-      }
-      .container {
-        flex-direction: column;
-        padding-top: 0.5rem;
-      }
-      .content {
-        width: 100%;
-        text-align: left;
-      }
-      .header .social {
-        align-items: flex-start;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      body {
-        line-height: 1.5;
-      }
+      body { padding: 0 20px; }
+      .header { flex-direction: column; align-items: flex-start; gap: 1rem; padding-top: 1.5rem; }
+      .container { flex-direction: column; padding-top: 0.5rem; }
+      .content { width: 100%; text-align: left; }
+      .header .social { align-items: flex-start; }
+      .table-row { grid-template-columns: 1fr 3fr 2fr 1fr; }
     }
   </style>
 </head>
@@ -160,15 +138,9 @@
     <div class="header">
       <div>Mattia De Lotto</div>
       <div class="social">
-        <a href="https://www.instagram.com/mattiadelotto/" target="_blank" rel="noopener noreferrer">
-          Instagram<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
-        </a>
-        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank" rel="noopener noreferrer">
-          LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
-        </a>
-        <a id="email-link">
-          Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span>
-        </a>
+        <a href="https://www.instagram.com/mattiadelotto/" target="_blank" rel="noopener noreferrer">Instagram<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span></a>
+        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span></a>
+        <a id="email-link">Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt="" /></span></a>
         <script>
           const u = "hello";
           const d = "mattiadelotto";
@@ -186,10 +158,37 @@
     </div>
 
     <div class="archive">
-      <a href="#" target="_blank" rel="noopener noreferrer">
-        Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="" /></span>
-      </a>
+      <a class="archive-link" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="" /></span></a>
+    </div>
+
+    <div class="catalogue" id="catalogue">
+      <div class="table-row table-head">
+        <div>Code</div><div>Title</div><div>Type</div><div>Year</div>
+      </div>
+      <div class="table-row">
+        <div>001</div><div>Mountain Pavilion</div><div>Competition</div><div>2024</div>
+      </div>
+      <div class="table-row">
+        <div>002</div><div>Library Extension</div><div>Academic</div><div>2023</div>
+      </div>
+      <div class="table-row">
+        <div>003</div><div>Coastal Shelter</div><div>Workshop</div><div>2023</div>
+      </div>
+      <div class="table-row">
+        <div>004</div><div>Courtyard Housing</div><div>Research</div><div>2022</div>
+      </div>
+      <div class="table-row">
+        <div>005</div><div>Light Pavilion</div><div>Installation</div><div>2021</div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function toggleArchive() {
+      document.body.classList.toggle('collapsed');
+      document.querySelector('.archive').classList.toggle('active');
+      document.getElementById('catalogue').classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
