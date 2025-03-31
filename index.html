@@ -189,8 +189,8 @@
     word-break: break-word;
   }
   .table-head {
-    display: none;
-  }
+  font-weight: 400;
+}
 }
       .header {
         flex-direction: column;
@@ -236,7 +236,7 @@
       <a class="archive-link" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="" /></span></a>
     </div>
 
-    $1 class="catalogue" id="catalogue" style="display: none; opacity: 0; transform: translateY(80px);">
+    <div class="catalogue" id="catalogue" style="display: none; opacity: 0; transform: translateY(80px);">
   <div class="table-row table-head">
     <div onclick="sortTable(0)" style="cursor:pointer;">Code <span id="arrow-0"></span></div>
     <div onclick="sortTable(1)" style="cursor:pointer;">Title <span id="arrow-1"></span></div>
@@ -262,7 +262,14 @@
 function toggleArchive() {
   document.body.classList.toggle('collapsed');
   document.querySelector('.archive').classList.toggle('active');
-  document.getElementById('catalogue').classList.toggle('active');
+  const catalogue = document.getElementById('catalogue');
+  if (catalogue.style.display === 'none') {
+    catalogue.style.display = 'block';
+    setTimeout(() => catalogue.classList.add('active'), 10);
+  } else {
+    catalogue.classList.remove('active');
+    setTimeout(() => catalogue.style.display = 'none', 300);
+  }
 }
 
 let currentSort = { column: null, ascending: true };
