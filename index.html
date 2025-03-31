@@ -47,13 +47,13 @@
 
     .social .arrow-icon img,
     .archive .arrow-icon img {
-      transform: rotate(0deg);
-    }
+  transform: rotate(0deg);
+}
     .social a:hover .arrow-icon img,
     .archive a:hover .arrow-icon img,
-    .archive.active .arrow-icon img {
-      transform: rotate(45deg);
-    }
+.archive.active .arrow-icon img {
+  transform: rotate(45deg);
+}
 
     .wrapper {
       display: flex;
@@ -299,11 +299,6 @@ function toggleArchive() {
     setTimeout(() => catalogue.style.display = 'none', 600);
   }
 }
-}
-} else {
-    catalogue.classList.remove('active');
-    setTimeout(() => catalogue.style.display = 'none', 300);
-  }
 }
 
 let currentSort = { column: null, ascending: true };
