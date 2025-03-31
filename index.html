@@ -23,7 +23,7 @@
       color: #111;
       padding: 0 30px;
     }
-    a {
+    a, button.archive-link, .table-head {
       text-decoration: underline;
       color: #111;
       font-weight: 300;
@@ -31,24 +31,14 @@
       align-items: center;
       gap: 6px;
       transition: color 0.2s ease;
-    }
-    a:hover { color: #555; }
-
-    button.archive-link {
+      cursor: pointer;
       background: none;
       border: none;
-      cursor: pointer;
       font-family: inherit;
       padding: 0;
       font-size: inherit;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #111;
-      text-decoration: underline;
-      transition: color 0.2s ease;
     }
-    button.archive-link:hover { color: #555; }
+    a:hover, button.archive-link:hover, .table-head:hover { color: #555; }
 
     .arrow-icon {
       width: 18px;
@@ -85,7 +75,6 @@
     .catalogue.active { display: block; opacity: 1; transform: translateY(0); }
 
     .table-row { display: grid; grid-template-columns: 1fr 4fr 3fr 1fr 3fr; padding: 0.5rem 0; border-bottom: 1px solid #111; }
-    .table-head { font-weight: 400; cursor: pointer; }
 
     @media (max-width: 768px) {
       body { padding: 0 20px; }
@@ -109,38 +98,39 @@
 
     <main class="container">
       <div class="content">
-  <p>Mattia De Lotto is an Italian architectural designer currently based in Delft, the Netherlands. He completed his Bachelor's Degree in Architecture at Iuav University of Venice and is now finishing his Master's at the Faculty of Architecture at TU Delft, where he's currently working on his graduation thesis.</p>
-  <p>Currently he is working at the Faculty of Architecture at TU Delft as an assistant to the research project Port City Future.</p>
-  <p>He has worked first at GEZA Architettura in Udine (Italy) and then majoral·tissino architects in Barcelona (Spain), gaining experience on a variety of projects across different scales and contexts.</p>
-  <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
-</div>
+        <p>Mattia De Lotto is an Italian architectural designer currently based in Delft, the Netherlands. He completed his Bachelor's Degree in Architecture at Iuav University of Venice and is now finishing his Master's at the Faculty of Architecture at TU Delft, where he's currently working on his graduation thesis.</p>
+        <p>Currently he is working at the Faculty of Architecture at TU Delft as an assistant to the research project Port City Future.</p>
+        <p>He has worked first at GEZA Architettura in Udine (Italy) and then majoral·tissino architects in Barcelona (Spain).</p>
+        <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
+      </div>
     </main>
 
     <footer class="archive">
-      <button class="archive-link" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span></button>
-    </footer>
+  <button class="archive-link" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span></button>
+</footer>
 
-    <div class="catalogue" id="catalogue">
-      <div class="table-row table-head">
-        <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
-        <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
-        <div onclick="sortTable(2)">Type <span id="arrow-2"></span></div>
-        <div onclick="sortTable(3)">Year <span id="arrow-3"></span></div>
-        <div onclick="sortTable(4)">Context <span id="arrow-4"></span></div>
-      </div>
-      <div class="table-row"><div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div></div>
-<div class="table-row"><div>002</div><div>Palimpsest Tower</div><div>Pavilion</div><div>2020</div><div>Competition</div></div>
-<div class="table-row"><div>003</div><div>+House</div><div>House and Atelier</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
-<div class="table-row"><div>004</div><div>Save the Kiln!</div><div>Restoration of national Heritage site</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
-<div class="table-row"><div>005</div><div>Reconstructions</div><div>School and Restoration of collapsed church</div><div>2022</div><div>Academic (graduation project - Iuav Venice)</div></div>
-<div class="table-row"><div>006</div><div>In continuity</div><div>Pavilion and heritage restoration</div><div>2022</div><div>Competition</div></div>
-<div class="table-row"><div>007</div><div>Portes Obertes</div><div>Restoration of Castle in Llinars del Valles</div><div>2023</div><div>Competition @majoral·tissino architects</div></div>
-<div class="table-row"><div>008</div><div>Beyond urban</div><div>Architectural and urban restoration</div><div>2023</div><div>Academic (TU Delft)</div></div>
-<div class="table-row"><div>009</div><div>A new continuity</div><div>Masterplan for Lignano Sabbiadoro Waterfront</div><div>2024</div><div>Competition</div></div>
-<div class="table-row"><div>010</div><div>The (im)possible palimpsest</div><div>Research on Piranesi's Campo Marzio</div><div>2024</div><div>Academic (TU Delft)</div></div>
-<div class="table-row"><div>011</div><div>Post-extraction scenarios</div><div>Underground mine</div><div>2024</div><div>Academic (TU Delft)</div></div>
-<div class="table-row"><div>012</div><div>Transfigurations</div><div>Master Thesis</div><div>2024-ongoing</div><div>Academic (TU Delft)</div></div>
-    </div>
+<div class="catalogue" id="catalogue">
+  <div class="table-row table-head">
+    <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
+    <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
+    <div onclick="sortTable(2)">Type <span id="arrow-2"></span></div>
+    <div onclick="sortTable(3)">Year <span id="arrow-3"></span></div>
+    <div onclick="sortTable(4)">Context <span id="arrow-4"></span></div>
+  </div>
+
+  <div class="table-row"><div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div></div>
+  <div class="table-row"><div>002</div><div>Palimpsest Tower</div><div>Pavilion</div><div>2020</div><div>Competition</div></div>
+  <div class="table-row"><div>003</div><div>+House</div><div>House and Atelier</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
+  <div class="table-row"><div>004</div><div>Save the Kiln!</div><div>Restoration of national Heritage site</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
+  <div class="table-row"><div>005</div><div>Reconstructions</div><div>School and Restoration of collapsed church</div><div>2022</div><div>Academic (graduation project - Iuav Venice)</div></div>
+  <div class="table-row"><div>006</div><div>In continuity</div><div>Pavilion and heritage restoration</div><div>2022</div><div>Competition</div></div>
+  <div class="table-row"><div>007</div><div>Portes Obertes</div><div>Restoration of Castle in Llinars del Valles</div><div>2023</div><div>Competition @majoral·tissino architects</div></div>
+  <div class="table-row"><div>008</div><div>Beyond urban</div><div>Architectural and urban restoration</div><div>2023</div><div>Academic (TU Delft)</div></div>
+  <div class="table-row"><div>009</div><div>A new continuity</div><div>Masterplan for Lignano Sabbiadoro Waterfront</div><div>2024</div><div>Competition</div></div>
+  <div class="table-row"><div>010</div><div>The (im)possible palimpsest</div><div>Research on Piranesi's Campo Marzio</div><div>2024</div><div>Academic (TU Delft)</div></div>
+  <div class="table-row"><div>011</div><div>Post-extraction scenarios</div><div>Underground mine</div><div>2024</div><div>Academic (TU Delft)</div></div>
+  <div class="table-row"><div>012</div><div>Transfigurations</div><div>Master Thesis</div><div>2024-ongoing</div><div>Academic (TU Delft)</div></div>
+</div>
   </div>
 
   <script>
