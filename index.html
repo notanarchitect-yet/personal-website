@@ -146,6 +146,29 @@
   }
   body { padding: 0 20px; }
   .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 1.5rem;
+  }
+  .container {
+    flex-direction: column;
+    padding-top: 0.5rem;
+  }
+  .content {
+    width: 100%;
+    text-align: left;
+  }
+  .header .social {
+    align-items: flex-end;
+  }
+  .catalogue {
+    overflow-x: auto;
+  }
+  .table-row {
+    min-width: 600px;
+    grid-template-columns: 1fr 4fr 3fr 1fr 3fr;
+  }
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
