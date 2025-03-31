@@ -83,29 +83,41 @@
     .content { width: 70%; }
 
     .archive {
-      padding: 1rem 0 2rem;
-      font-size: 1rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      position: absolute;
-      bottom: 2rem;
-      left: 0;
-    }
+  padding: 1rem 0 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: fixed;
+  bottom: 2rem;
+  left: 30px;
+  background-color: #fff;
+  z-index: 10;
+}
 
     .collapsed .archive {
       position: static;
       padding-top: 2rem;
     }
 
+    $1
+
     .catalogue {
-      display: none;
-      opacity: 0;
-      transform: translateY(80px);
-      transition: opacity 0.8s ease, transform 1.2s ease;
-      padding-bottom: 3rem;
-      width: 100%;
+      overflow-x: auto;
+    }
+
+    .catalogue::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .catalogue::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    .catalogue::-webkit-scrollbar-track {
+      background: transparent;
     }
 
     .catalogue.active {
@@ -129,7 +141,57 @@
     .collapsed .social a:not(#email-link) { display: none; }
 
     @media (max-width: 768px) {
-      body { padding: 0 20px; }
+  .archive {
+    left: 20px;
+  }
+  body { padding: 0 20px; }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+  .container {
+    flex-direction: column;
+    padding-top: 0.5rem;
+  }
+  .content {
+    width: 100%;
+    text-align: left;
+  }
+  .header .social {
+    align-items: flex-start;
+  }
+  .catalogue {
+    overflow-x: auto;
+  }
+  .table-row {
+    min-width: 600px;
+    grid-template-columns: 1fr 4fr 3fr 1fr 3fr;
+  }
+}
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+  .container { flex-direction: column; padding-top: 0.5rem; }
+  .content { width: 100%; text-align: left; }
+  .header .social { align-items: flex-start; }
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0.75rem 0;
+  }
+  .table-row div {
+    font-size: 14px;
+    word-break: break-word;
+  }
+  .table-head {
+    display: none;
+  }
+}
       .header {
         flex-direction: column;
         align-items: flex-start;
