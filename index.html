@@ -123,11 +123,11 @@
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span></button>
     </footer>
 
-    <div id="search-container" style="display:none; justify-content: center; align-items: center; margin-top: 2rem;">
-      <button id="search-toggle" style="background: none; border: none; cursor: pointer;">
+    <div id="search-container" style="display:none; position: fixed; bottom: 2rem; left: calc(1fr + 4fr + 1.5rem); align-items: center; gap: 10px; z-index: 10;">
+      <button id="search-toggle" style="background: none; border: none; cursor: pointer; outline: none;">
         <img src="img/search-icon.svg" alt="Search" style="width: 20px; height: 20px;">
       </button>
-      <input type="text" id="search-input" placeholder="Find a project..." style="display:none; margin-left: 10px; padding: 4px 8px; font-family: inherit; font-size: 16px; border: 1px solid #111; background: #fff; color: #111;" onkeyup="filterCatalogue()" />
+      <input type="text" id="search-input" placeholder="Find a project..." style="display:none; margin-left: 10px; padding: 4px 8px; font-family: inherit; font-size: 16px; border: 1px solid #111; background: #fff; color: #111; outline: none;">
     </div>
 
     <div class="catalogue" id="catalogue">
@@ -136,7 +136,7 @@
   <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
   <div onclick="sortTable(2)">Type <span id="arrow-2"></span></div>
   <div onclick="sortTable(3)">Year <span id="arrow-3"></span></div>
-  <div onclick="sortTable(4)">Context <span id="arrow-4"></span></div>
+  <div onclick="sortTable(4)">Category <span id="arrow-4"></span></div>
   <div></div>
 </div>
 <div class="table-row"><div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div><div class="indicator">○</div></div>
