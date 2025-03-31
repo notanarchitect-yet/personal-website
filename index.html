@@ -28,6 +28,8 @@
       padding: 0 30px;
       cursor: crosshair;
     }
+
+    /* Generic links & archive button */
     a, button.archive-link {
       text-decoration: underline;
       color: #111;
@@ -47,6 +49,7 @@
       color: #555;
     }
 
+    /* Arrow icons */
     .arrow-icon {
       width: 18px;
       height: 18px;
@@ -65,6 +68,7 @@
       transform: rotate(45deg);
     }
 
+    /* Layout wrappers */
     .wrapper {
       display: flex;
       flex-direction: column;
@@ -84,7 +88,6 @@
     .social a {
       margin-bottom: 0.5rem;
     }
-
     main.container {
       display: flex;
       justify-content: space-between;
@@ -94,25 +97,24 @@
       width: 70%;
     }
 
-    /* 
-      The .archive no longer uses position: fixed; 
-      so that the search container can be on the same line
-    */
+    /* Archive button initially at bottom-left (fixed) */
     .archive {
-      font-size: 1rem;
-      margin-top: 2rem;
+      position: fixed;
+      bottom: 2rem;
+      left: 30px;
       z-index: 10;
+      font-size: 1rem;
       display: flex;
       align-items: center;
-      gap: 1rem; /* space between Archive button and search container */
+      gap: 1rem;
+      transition: all 0.5s ease;
     }
 
-    .collapsed .social a:not(#email-link),
-    .collapsed .container {
-      display: none;
-    }
-    .collapsed .archive {
-      margin-top: 2rem;
+    /* When the archive is opened, we remove fixed positioning
+       so it flows above the catalogue, aligned with 3rd column */
+    .archive.archive-open {
+      position: static;
+      margin-top: 1rem; /* up to you */
     }
 
     .catalogue {
@@ -137,16 +139,13 @@
       align-items: center;
       cursor: crosshair;
     }
-    /* Expand details if row is expanded */
     .table-row.expanded .details {
       display: block;
     }
-
     .indicator {
       font-size: 12px;
       justify-self: center;
     }
-
     .table-row:not(.table-head):hover {
       background-color: #111;
       color: #fff;
@@ -154,19 +153,18 @@
     .has-details {
       cursor: pointer;
     }
-
     .details {
       display: none;
       grid-column: 1 / -1;
       padding-top: 1rem;
     }
 
-    /* Search container inside .archive */
+    /* Search container is hidden by default. We show it only after toggling. */
     #search-container {
-      display: flex;
+      display: none; /* hidden by default */
       align-items: center;
       gap: 10px;
-      margin-left: 15%; /* approximate alignment with the 3rd column (adjust as needed) */
+      margin-left: 15%; /* approximate alignment with 3rd column */
     }
     #search-toggle {
       background: none;
@@ -207,14 +205,17 @@
       .table-row {
         min-width: 600px;
       }
+      /* On mobile, the archive button won't be at bottom if you'd like */
       .archive {
-        margin-top: 1rem;
+        left: 20px;
+        bottom: 1rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
+
     <header class="header">
       <div>Mattia De Lotto</div>
       <div class="social">
@@ -239,11 +240,14 @@
       </div>
     </main>
 
-    <!-- The footer bar now has both the Archive button and search container side by side -->
-    <footer class="archive">
+    <!-- Archive button (fixed bottom-left by default),
+         then when toggled, we remove position: fixed & show search -->
+    <footer class="archive" id="footer-bar">
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
         Archive
-        <span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span>
+        <span class="arrow-icon">
+          <img src="img/arrow-archive.svg" alt="Toggle archive">
+        </span>
       </button>
 
       <div id="search-container">
@@ -260,6 +264,7 @@
     </footer>
 
     <div class="catalogue" id="catalogue">
+      <!-- Table Head -->
       <div class="table-row table-head">
         <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
         <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
@@ -269,6 +274,7 @@
         <div></div>
       </div>
 
+      <!-- 001 - no details -->
       <div class="table-row">
         <div>001</div>
         <div>Venetian Tale</div>
@@ -278,6 +284,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 002 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>002</div>
         <div>Palimpsest Tower</div>
@@ -290,6 +297,7 @@
         </div>
       </div>
 
+      <!-- 003 -->
       <div class="table-row">
         <div>003</div>
         <div>+House</div>
@@ -299,6 +307,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 004 -->
       <div class="table-row">
         <div>004</div>
         <div>Save the Kiln!</div>
@@ -308,6 +317,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 005 -->
       <div class="table-row">
         <div>005</div>
         <div>Reconstructions</div>
@@ -317,6 +327,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 006 with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>006</div>
         <div>In continuity</div>
@@ -329,6 +340,7 @@
         </div>
       </div>
 
+      <!-- 007 -->
       <div class="table-row">
         <div>007</div>
         <div>Portes Obertes</div>
@@ -338,6 +350,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 008 -->
       <div class="table-row">
         <div>008</div>
         <div>Beyond urban</div>
@@ -347,6 +360,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 009 with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>009</div>
         <div>A new continuity</div>
@@ -359,6 +373,7 @@
         </div>
       </div>
 
+      <!-- 010 -->
       <div class="table-row">
         <div>010</div>
         <div>The (im)possible palimpsest</div>
@@ -368,6 +383,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 011 -->
       <div class="table-row">
         <div>011</div>
         <div>Post-extraction scenarios</div>
@@ -377,6 +393,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 012 -->
       <div class="table-row">
         <div>012</div>
         <div>Transfigurations</div>
@@ -386,6 +403,7 @@
         <div class="indicator">○</div>
       </div>
 
+      <!-- 013 with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>013</div>
         <div>Park Apartment</div>
@@ -409,24 +427,33 @@
     });
 
     function toggleArchive() {
-      document.body.classList.toggle('collapsed');
       const catalogue = document.getElementById('catalogue');
       const archiveBtn = document.getElementById('archive-btn');
+      const archiveFooter = document.getElementById('footer-bar');
+      const searchContainer = document.getElementById('search-container');
+      
+      // Toggle the .active class on catalogue
+      const isActive = catalogue.classList.toggle('active');
       archiveBtn.classList.toggle('active');
 
-      // Show/hide the catalogue
-      if (!catalogue.classList.contains('active')) {
-        catalogue.classList.add('active');
+      if (isActive) {
+        // Reveal the catalogue
         catalogue.style.display = 'block';
         requestAnimationFrame(() => {
           catalogue.style.opacity = '1';
           catalogue.style.transform = 'translateY(0)';
         });
+        // Move the archive to normal flow & show search
+        archiveFooter.classList.add('archive-open');
+        searchContainer.style.display = 'flex';
       } else {
-        catalogue.classList.remove('active');
+        // Hide the catalogue
         catalogue.style.opacity = '0';
         catalogue.style.transform = 'translateY(80px)';
         setTimeout(() => catalogue.style.display = 'none', 600);
+        // Put the archive back to fixed at bottom & hide search
+        archiveFooter.classList.remove('archive-open');
+        searchContainer.style.display = 'none';
       }
     }
 
@@ -449,7 +476,7 @@
     document.getElementById('search-toggle').addEventListener('click', () => {
       const input = document.getElementById('search-input');
       // Toggle the input's visibility
-      input.style.display = input.style.display === 'none' ? 'inline-block' : 'none';
+      input.style.display = (input.style.display === 'none' || input.style.display === '') ? 'inline-block' : 'none';
       if (input.style.display === 'inline-block') input.focus();
     });
 
@@ -480,7 +507,7 @@
       // Update the arrow indicators
       for (let i = 0; i < 5; i++) {
         const arrow = document.getElementById(`arrow-${i}`);
-        arrow.textContent = i === colIndex
+        arrow.textContent = (i === colIndex)
           ? (currentSort.ascending ? '↑' : '↓')
           : '';
       }
