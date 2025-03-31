@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>info – mattia de lotto</title>
-  <meta name="description" content="Portfolio info of Mattia De Lotto...">
+  <meta name="description" content="Portfolio and information of Mattia De Lotto, Italian architectural designer currently based in Delft, the Netherlands.">
   <link rel="preload" href="img/arrow-social.svg" as="image">
   <link rel="preload" href="img/arrow-archive.svg" as="image">
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -30,12 +30,7 @@
       transition: all 0.5s ease;
     }
 
-    /* Social & main content vanish on .collapsed */
-    .collapsed main.container,
-    .collapsed .header .social {
-      display: none;
-    }
-
+    /* Generic links & archive button */
     a, button.archive-link {
       text-decoration: underline;
       color: #111;
@@ -55,6 +50,7 @@
       color: #555;
     }
 
+    /* Arrow icons */
     .arrow-icon {
       width: 18px;
       height: 18px;
@@ -73,7 +69,7 @@
       transform: rotate(45deg);
     }
 
-    /* Basic layout */
+    /* Layout wrappers */
     .wrapper {
       display: flex;
       flex-direction: column;
@@ -106,53 +102,30 @@
       transition: all 0.3s ease;
     }
 
-    /* The pinned container for archive + search + catalogue */
-    #bottom-block {
+    /* Archive button at bottom-left by default */
+    .archive {
       position: fixed;
+      bottom: 2rem;
       left: 30px;
-      bottom: 2rem; /* initial position */
-      transition: bottom 0.6s ease; /* we animate 'bottom' now */
-    }
-    /* Slide up: set bottom higher */
-    #bottom-block.slide-up {
-      bottom: 12rem; /* or however high you want it */
-    }
-
-    footer.archive {
+      z-index: 10;
+      font-size: 1rem;
       display: flex;
       align-items: center;
       gap: 1rem;
-      font-size: 1rem;
       transition: all 0.5s ease;
     }
 
-    #search-container {
+    /* The .collapsed class is toggled on <body> */
+    /* Hide the social links and main container when collapsed */
+    .collapsed .header .social,
+    .collapsed main.container {
       display: none;
-      align-items: center;
-      gap: 10px;
-      margin-left: 10px;
     }
-    #search-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      outline: none;
-    }
-    #search-toggle img {
-      width: 20px;
-      height: 20px;
-    }
-    #search-input {
-      display: none;
-      margin-left: 10px;
-      padding: 0;
-      font-family: inherit;
-      font-size: 16px;
-      border: none;
-      background: transparent;
-      color: #111;
-      outline: none;
-      border-bottom: 1px solid #111;
+
+    /* Also change the .archive's style when collapsed => moves to normal flow (top) */
+    .collapsed .archive {
+      position: static;
+      margin-top: 1rem;
     }
 
     .catalogue {
@@ -197,6 +170,37 @@
       padding-top: 1rem;
     }
 
+    /* Search container hidden by default; shown once archive is toggled. */
+    #search-container {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-left: 15%; /* approximate alignment with 3rd column */
+      transition: all 0.3s ease;
+    }
+    #search-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+    }
+    #search-toggle img {
+      width: 20px;
+      height: 20px;
+    }
+    #search-input {
+      display: none;
+      margin-left: 10px;
+      padding: 0;
+      font-family: inherit;
+      font-size: 16px;
+      border: none;
+      background: transparent;
+      color: #111;
+      outline: none;
+      border-bottom: 1px solid #111;
+    }
+
     @media (max-width: 768px) {
       body {
         padding: 0 20px;
@@ -212,6 +216,10 @@
       }
       .table-row {
         min-width: 600px;
+      }
+      .archive {
+        left: 20px;
+        bottom: 1rem;
       }
     }
   </style>
@@ -241,18 +249,18 @@
         <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
       </div>
     </main>
-  </div>
 
-  <!-- pinned container for the archive & search + catalogue -->
-  <div id="bottom-block">
-    <footer class="archive">
+    <footer class="archive" id="archive-bar">
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
-        Archive <span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span>
+        Archive
+        <span class="arrow-icon">
+          <img src="img/arrow-archive.svg" alt="Toggle archive">
+        </span>
       </button>
 
       <div id="search-container">
         <button id="search-toggle">
-          <img src="img/search-icon.svg" alt="Search"/>
+          <img src="img/search-icon.svg" alt="Search" />
         </button>
         <input
           type="text"
@@ -272,6 +280,8 @@
         <div onclick="sortTable(4)">Category <span id="arrow-4"></span></div>
         <div></div>
       </div>
+
+      <!-- 001 - no details -->
       <div class="table-row">
         <div>001</div>
         <div>Venetian Tale</div>
@@ -280,6 +290,8 @@
         <div>Academic (Iuav Venice)</div>
         <div class="indicator">○</div>
       </div>
+
+      <!-- 002 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>002</div>
         <div>Palimpsest Tower</div>
@@ -291,12 +303,130 @@
           <p>Competition for ArkxSite in collaboration with Alessandra D'Acunto.</p>
         </div>
       </div>
-      <!-- Etc... all your other project rows, same pattern -->
+
+      <!-- 003 - no details -->
+      <div class="table-row">
+        <div>003</div>
+        <div>+House</div>
+        <div>House and Atelier</div>
+        <div>2021</div>
+        <div>Academic (Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 004 - no details -->
+      <div class="table-row">
+        <div>004</div>
+        <div>Save the Kiln!</div>
+        <div>Restoration of national Heritage site</div>
+        <div>2021</div>
+        <div>Academic (Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 005 - no details -->
+      <div class="table-row">
+        <div>005</div>
+        <div>Reconstructions</div>
+        <div>School and Restoration of collapsed church</div>
+        <div>2022</div>
+        <div>Academic (graduation project - Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 006 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>006</div>
+        <div>In continuity</div>
+        <div>Pavilion and heritage restoration</div>
+        <div>2022</div>
+        <div>Competition</div>
+        <div class="indicator">●</div>
+        <div class="details">
+          <p>Competition for ReuseItaly in collaboration with Alessandra D'Acunto and Edoardo Ambrosio.</p>
+        </div>
+      </div>
+
+      <!-- 007 - no details -->
+      <div class="table-row">
+        <div>007</div>
+        <div>Portes Obertes</div>
+        <div>Restoration of Castle in Llinars del Valles</div>
+        <div>2023</div>
+        <div>Competition @majoral·tissino architects</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 008 - no details -->
+      <div class="table-row">
+        <div>008</div>
+        <div>Beyond urban</div>
+        <div>Architectural and urban restoration</div>
+        <div>2023</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 009 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>009</div>
+        <div>A new continuity</div>
+        <div>Masterplan for Lignano Sabbiadoro Waterfront</div>
+        <div>2024</div>
+        <div>Competition</div>
+        <div class="indicator">●</div>
+        <div class="details">
+          <p>Competition for Terraviva in collaboration with Alessandra D'Acunto.</p>
+        </div>
+      </div>
+
+      <!-- 010 - no details -->
+      <div class="table-row">
+        <div>010</div>
+        <div>The (im)possible palimpsest</div>
+        <div>Research on Piranesi's Campo Marzio</div>
+        <div>2024</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 011 - no details -->
+      <div class="table-row">
+        <div>011</div>
+        <div>Post-extraction scenarios</div>
+        <div>Underground mine</div>
+        <div>2024</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 012 - no details -->
+      <div class="table-row">
+        <div>012</div>
+        <div>Transfigurations</div>
+        <div>Master Thesis</div>
+        <div>2024-ongoing</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 013 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>013</div>
+        <div>Park Apartment</div>
+        <div>Renovation</div>
+        <div>2024-ongoing</div>
+        <div>Professional</div>
+        <div class="indicator">●</div>
+        <div class="details">
+          <p>This is a placeholder for project 13 additional content.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
       const emailLink = document.getElementById('email-link');
       const user = 'hello.mattiadelotto';
       const domain = 'gmail.com';
@@ -304,42 +434,32 @@
     });
 
     function toggleArchive() {
-      // If you want to hide main/container & social:
+      // Toggle the 'collapsed' class on body
       document.body.classList.toggle('collapsed');
 
-      const bottomBlock   = document.getElementById('bottom-block');
+      const archiveBtn = document.getElementById('archive-btn');
+      const catalogue = document.getElementById('catalogue');
       const searchContainer = document.getElementById('search-container');
-      const catalogue     = document.getElementById('catalogue');
-      const archiveBtn    = document.getElementById('archive-btn');
 
-      const isActive = catalogue.classList.toggle('active');
       archiveBtn.classList.toggle('active');
+      const isActive = catalogue.classList.toggle('active');
 
       if (isActive) {
-        // Show search container right away
-        searchContainer.style.display = 'flex';
-
-        // show & fade in the catalogue
+        // Show catalogue
         catalogue.style.display = 'block';
         requestAnimationFrame(() => {
           catalogue.style.opacity = '1';
           catalogue.style.transform = 'translateY(0)';
         });
-
-        // after some short delay, move from bottom:2rem => bottom:12rem
-        setTimeout(() => {
-          bottomBlock.classList.add('slide-up');
-        }, 300);
+        // Show search container next to Archive button
+        searchContainer.style.display = 'flex';
       } else {
-        catalogue.classList.remove('active');
+        // Hide catalogue
         catalogue.style.opacity = '0';
         catalogue.style.transform = 'translateY(80px)';
-        archiveBtn.classList.remove('active');
-        setTimeout(() => {
-          catalogue.style.display = 'none';
-        }, 600);
+        setTimeout(() => catalogue.style.display = 'none', 600);
+        // Hide search
         searchContainer.style.display = 'none';
-        bottomBlock.classList.remove('slide-up');
       }
     }
 
@@ -348,6 +468,7 @@
     }
 
     let currentSort = { column: null, ascending: true };
+
     function filterCatalogue() {
       const input = document.getElementById('search-input');
       const filter = input.value.toLowerCase();
@@ -361,6 +482,7 @@
 
     document.getElementById('search-toggle').addEventListener('click', () => {
       const input = document.getElementById('search-input');
+      // Toggle the input's visibility
       input.style.display = (input.style.display === 'none' || input.style.display === '') ? 'inline-block' : 'none';
       if (input.style.display === 'inline-block') input.focus();
     });
@@ -385,9 +507,11 @@
           ? aText.localeCompare(bText, undefined, { numeric: true })
           : bText.localeCompare(aText, undefined, { numeric: true });
       });
+
+      // Re-insert sorted rows
       sorted.forEach(row => table.appendChild(row));
 
-      // arrow
+      // Update the arrow indicators
       for (let i = 0; i < 5; i++) {
         const arrow = document.getElementById(`arrow-${i}`);
         arrow.textContent = (i === colIndex)
