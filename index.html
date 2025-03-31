@@ -73,207 +73,360 @@
     .collapsed .social a:not(#email-link), .collapsed .container { display: none; }
     .collapsed .archive { position: static; margin-top: 2rem; }
 
-    .catalogue { display: none; opacity: 0; transform: translateY(80px); transition: opacity 0.6s ease, transform 0.6s ease; overflow-x: auto; padding-bottom: 3rem; }
-    .catalogue.active { display: block; opacity: 1; transform: translateY(0); }
+    .catalogue {
+      display: none;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      overflow-x: auto;
+      padding-bottom: 3rem;
+    }
+    .catalogue.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .table-row {
-  display: grid;
-  grid-template-columns: 1fr 4fr 3fr 1fr 3fr 0.5fr;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #111;
-  align-items: center;
-  cursor: crosshair;
-} align-items: center; }
-    .details { display: none; grid-column: 1 / -1; padding-top: 1rem; }
-    .table-row.expanded .details { display: block; }
+      display: grid;
+      grid-template-columns: 1fr 4fr 3fr 1fr 3fr 0.5fr;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #111;
+      align-items: center;
+      cursor: crosshair;
+    }
+    .table-row.expanded .details {
+      display: block;
+    }
+    .indicator {
+      font-size: 12px;
+      justify-self: center;
+    }
+    .table-row:not(.table-head):hover {
+      background-color: #111;
+      color: #fff;
+    }
+    .has-details {
+      cursor: pointer;
+    }
 
-    .indicator { font-size: 12px; justify-self: center; }
+    .details {
+      display: none;
+      grid-column: 1 / -1;
+      padding-top: 1rem;
+    }
 
     @media (max-width: 768px) {
       body { padding: 0 20px; }
-      .header, main.container { flex-direction: column; }
-      .content, .social { width: 100%; align-items: flex-start; }
-      .table-row { min-width: 600px; }
-      .archive { left: 20px; bottom: 1rem; }
+      .header,
+      main.container {
+        flex-direction: column;
+      }
+      .content,
+      .social {
+        width: 100%;
+        align-items: flex-start;
+      }
+      .table-row {
+        min-width: 600px;
+      }
+      .archive {
+        left: 20px;
+        bottom: 1rem;
+      }
     }
-  .table-row:not(.table-head):hover {
-  background-color: #111;
-  color: #fff;
-}
-.has-details {
-  cursor: pointer;
-}
-</style>
+  </style>
 </head>
 <body>
   <div class="wrapper">
     <header class="header">
       <div>Mattia De Lotto</div>
       <div class="social">
-        <a href="https://www.instagram.com/mattiadelotto/" target="_blank">Instagram<span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span></a>
-        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank">LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span></a>
-        <a id="email-link" style="cursor:pointer;">Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt="Email link icon"></span></a>
+        <a href="https://www.instagram.com/mattiadelotto/" target="_blank">Instagram
+          <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
+        </a>
+        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank">LinkedIn
+          <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
+        </a>
+        <a id="email-link" style="cursor:pointer;">Contact
+          <span class="arrow-icon"><img src="img/arrow-social.svg" alt="Email link icon"></span>
+        </a>
       </div>
     </header>
 
     <main class="container">
       <div class="content">
-  <p>Mattia De Lotto is an Italian architectural designer currently based in Delft, the Netherlands. He completed his Bachelor's Degree in Architecture at Iuav University of Venice and is now finishing his Master's at the Faculty of Architecture at TU Delft, where he's currently working on his graduation thesis.</p>
-  <p>Currently he is working at the Faculty of Architecture at TU Delft as an assistant to the research project Port City Future.</p>
-  <p>He has worked first at GEZA Architettura in Udine (Italy) and then majoral·tissino architects in Barcelona (Spain), gaining experience on a variety of projects across different scales and contexts.</p>
-  <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
-</div>
+        <p>Mattia De Lotto is an Italian architectural designer currently based in Delft, the Netherlands. He completed his Bachelor's Degree in Architecture at Iuav University of Venice and is now finishing his Master's at the Faculty of Architecture at TU Delft, where he's currently working on his graduation thesis.</p>
+        <p>Currently he is working at the Faculty of Architecture at TU Delft as an assistant to the research project Port City Future.</p>
+        <p>He has worked first at GEZA Architettura in Udine (Italy) and then majoral·tissino architects in Barcelona (Spain), gaining experience on a variety of projects across different scales and contexts.</p>
+        <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
+      </div>
     </main>
 
     <footer class="archive">
-      <button class="archive-link" id="archive-btn" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span></button>
+      <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
+        Archive
+        <span class="arrow-icon">
+          <img src="img/arrow-archive.svg" alt="Toggle archive">
+        </span>
+      </button>
     </footer>
 
+    <!-- This search container is absolute positioned, you can adjust if needed -->
     <div id="search-container" style="display:none; position: absolute; bottom: 2rem; left: calc(30px + 1fr + 4fr + 1.5rem); align-items: center; gap: 10px; z-index: 10;">
       <button id="search-toggle" style="background: none; border: none; cursor: pointer; outline: none;">
         <img src="img/search-icon.svg" alt="Search" style="width: 20px; height: 20px;">
       </button>
-      <input type="text" id="search-input" placeholder="Find a project..." style="display:none; margin-left: 10px; padding: 0; font-family: inherit; font-size: 16px; border: none; background: transparent; color: #111; outline: none; border-bottom: 1px solid #111;">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Find a project..."
+        style="display:none; margin-left: 10px; padding: 0; font-family: inherit; font-size: 16px; border: none; background: transparent; color: #111; outline: none; border-bottom: 1px solid #111;"
+        onkeyup="filterCatalogue()"
+      >
     </div>
 
     <div class="catalogue" id="catalogue">
-     <div class="table-row table-head">
-  <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
-  <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
-  <div onclick="sortTable(2)">Type <span id="arrow-2"></span></div>
-  <div onclick="sortTable(3)">Year <span id="arrow-3"></span></div>
-  <div onclick="sortTable(4)">Category <span id="arrow-4"></span></div>
-  <div></div>
-</div>
-<div class="table-row">
-  <div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div><div class="indicator">○</div>
-</div>
-<div class="table-row has-details" onclick="toggleDetails(this)">
-  <div>002</div><div>Palimpsest Tower</div><div>Pavilion</div><div>2020</div><div>Competition</div><div class="indicator">●</div>
-</div>
-<div class="details" style="display: none;"><p>Competition for ArkxSite in collaboration with Alessandra D'Acunto.</p></div>
-<div class="table-row">
-  <div>003</div><div>+House</div><div>House and Atelier</div><div>2021</div><div>Academic (Iuav Venice)</div><div class="indicator">○</div>
-</div>
-<div class="table-row">
-  <div>004</div><div>Save the Kiln!</div><div>Restoration of national Heritage site</div><div>2021</div><div>Academic (Iuav Venice)</div><div class="indicator">○</div>
-</div>
-<div class="table-row">
-  <div>005</div><div>Reconstructions</div><div>School and Restoration of collapsed church</div><div>2022</div><div>Academic (graduation project - Iuav Venice)</div><div class="indicator">○</div>
-</div>
-<div class="table-row has-details" onclick="toggleDetails(this)">
-  <div>006</div><div>In continuity</div><div>Pavilion and heritage restoration</div><div>2022</div><div>Competition</div><div class="indicator">●</div>
-</div>
-<div class="details" style="display: none;"><p>Competition for ReuseItaly in collaboration with Alessandra D'Acunto and Edoardo Ambrosio.</p></div>
-<div class="table-row">
-  <div>007</div><div>Portes Obertes</div><div>Restoration of Castle in Llinars del Valles</div><div>2023</div><div>Competition @majoral·tissino architects</div><div class="indicator">○</div>
-</div>
-<div class="table-row">
-  <div>008</div><div>Beyond urban</div><div>Architectural and urban restoration</div><div>2023</div><div>Academic (TU Delft)</div><div class="indicator">○</div>
-</div>
-<div class="table-row has-details" onclick="toggleDetails(this)">
-  <div>009</div><div>A new continuity</div><div>Masterplan for Lignano Sabbiadoro Waterfront</div><div>2024</div><div>Competition</div><div class="indicator">●</div>
-</div>
-<div class="details" style="display: none;"><p>Competition for Terraviva in collaboration with Alessandra D'Acunto.</p></div>
-<div class="table-row">
-  <div>010</div><div>The (im)possible palimpsest</div><div>Research on Piranesi's Campo Marzio</div><div>2024</div><div>Academic (TU Delft)</div><div class="indicator">○</div>
-</div>
-<div class="table-row">
-  <div>011</div><div>Post-extraction scenarios</div><div>Underground mine</div><div>2024</div><div>Academic (TU Delft)</div><div class="indicator">○</div>
-</div>
-<div class="table-row">
-  <div>012</div><div>Transfigurations</div><div>Master Thesis</div><div>2024-ongoing</div><div>Academic (TU Delft)</div><div class="indicator">○</div>
-</div>
-<div class="table-row has-details" onclick="toggleDetails(this)">
-  <div>013</div><div>Park Apartment</div><div>Renovation</div><div>2024-ongoing</div><div>Professional</div><div class="indicator">●</div>
-</div>
-<div class="details" style="display: none;"><p>This is a placeholder for project 13 additional content.</p></div>
+      <div class="table-row table-head">
+        <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
+        <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
+        <div onclick="sortTable(2)">Type <span id="arrow-2"></span></div>
+        <div onclick="sortTable(3)">Year <span id="arrow-3"></span></div>
+        <div onclick="sortTable(4)">Category <span id="arrow-4"></span></div>
+        <div></div>
+      </div>
 
-</div>
+      <!-- 001 - no details -->
+      <div class="table-row">
+        <div>001</div>
+        <div>Venetian Tale</div>
+        <div>Pavilion</div>
+        <div>2020</div>
+        <div>Academic (Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 002 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>002</div>
+        <div>Palimpsest Tower</div>
+        <div>Pavilion</div>
+        <div>2020</div>
+        <div>Competition</div>
+        <div class="indicator">●</div>
+
+        <!-- nested details -->
+        <div class="details">
+          <p>Competition for ArkxSite in collaboration with Alessandra D'Acunto.</p>
+        </div>
+      </div>
+
+      <!-- 003 - no details -->
+      <div class="table-row">
+        <div>003</div>
+        <div>+House</div>
+        <div>House and Atelier</div>
+        <div>2021</div>
+        <div>Academic (Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 004 - no details -->
+      <div class="table-row">
+        <div>004</div>
+        <div>Save the Kiln!</div>
+        <div>Restoration of national Heritage site</div>
+        <div>2021</div>
+        <div>Academic (Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 005 - no details -->
+      <div class="table-row">
+        <div>005</div>
+        <div>Reconstructions</div>
+        <div>School and Restoration of collapsed church</div>
+        <div>2022</div>
+        <div>Academic (graduation project - Iuav Venice)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 006 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>006</div>
+        <div>In continuity</div>
+        <div>Pavilion and heritage restoration</div>
+        <div>2022</div>
+        <div>Competition</div>
+        <div class="indicator">●</div>
+
+        <div class="details">
+          <p>Competition for ReuseItaly in collaboration with Alessandra D'Acunto and Edoardo Ambrosio.</p>
+        </div>
+      </div>
+
+      <!-- 007 - no details -->
+      <div class="table-row">
+        <div>007</div>
+        <div>Portes Obertes</div>
+        <div>Restoration of Castle in Llinars del Valles</div>
+        <div>2023</div>
+        <div>Competition @majoral·tissino architects</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 008 - no details -->
+      <div class="table-row">
+        <div>008</div>
+        <div>Beyond urban</div>
+        <div>Architectural and urban restoration</div>
+        <div>2023</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 009 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>009</div>
+        <div>A new continuity</div>
+        <div>Masterplan for Lignano Sabbiadoro Waterfront</div>
+        <div>2024</div>
+        <div>Competition</div>
+        <div class="indicator">●</div>
+
+        <div class="details">
+          <p>Competition for Terraviva in collaboration with Alessandra D'Acunto.</p>
+        </div>
+      </div>
+
+      <!-- 010 - no details -->
+      <div class="table-row">
+        <div>010</div>
+        <div>The (im)possible palimpsest</div>
+        <div>Research on Piranesi's Campo Marzio</div>
+        <div>2024</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 011 - no details -->
+      <div class="table-row">
+        <div>011</div>
+        <div>Post-extraction scenarios</div>
+        <div>Underground mine</div>
+        <div>2024</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 012 - no details -->
+      <div class="table-row">
+        <div>012</div>
+        <div>Transfigurations</div>
+        <div>Master Thesis</div>
+        <div>2024-ongoing</div>
+        <div>Academic (TU Delft)</div>
+        <div class="indicator">○</div>
+      </div>
+
+      <!-- 013 - with details -->
+      <div class="table-row has-details" onclick="toggleDetails(this)">
+        <div>013</div>
+        <div>Park Apartment</div>
+        <div>Renovation</div>
+        <div>2024-ongoing</div>
+        <div>Professional</div>
+        <div class="indicator">●</div>
+
+        <div class="details">
+          <p>This is a placeholder for project 13 additional content.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-  const emailLink = document.getElementById("email-link");
-  const user = "hello.mattiadelotto";
-  const domain = "gmail.com";
-  emailLink.href = `mailto:${user}@${domain}`;
-});
-
-function toggleArchive() {
-  document.body.classList.toggle('collapsed');
-  const catalogue = document.getElementById('catalogue');
-  const archiveBtn = document.getElementById('archive-btn');
-  const searchContainer = document.getElementById('search-container');
-
-  archiveBtn.classList.toggle('active');
-
-  if (!catalogue.classList.contains('active')) {
-    catalogue.classList.add('active');
-    catalogue.style.display = 'block';
-    searchContainer.style.display = 'flex';
-    requestAnimationFrame(() => {
-      catalogue.style.opacity = '1';
-      catalogue.style.transform = 'translateY(0)';
+      const emailLink = document.getElementById('email-link');
+      const user = 'hello.mattiadelotto';
+      const domain = 'gmail.com';
+      emailLink.href = `mailto:${user}@${domain}`;
     });
-  } else {
-    catalogue.classList.remove('active');
-    catalogue.style.opacity = '0';
-    catalogue.style.transform = 'translateY(80px)';
-    searchContainer.style.display = 'none';
-    setTimeout(() => catalogue.style.display = 'none', 600);
-  }
-}
 
-function toggleDetails(row) {
-  row.classList.toggle('expanded');
-}
+    function toggleArchive() {
+      document.body.classList.toggle('collapsed');
+      const catalogue = document.getElementById('catalogue');
+      const archiveBtn = document.getElementById('archive-btn');
+      const searchContainer = document.getElementById('search-container');
 
-let currentSort = { column: null, ascending: true };
-function filterCatalogue() {
-  const input = document.getElementById('search-input');
-  const filter = input.value.toLowerCase();
-  const rows = document.querySelectorAll('.table-row:not(.table-head)');
+      archiveBtn.classList.toggle('active');
 
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(filter) ? '' : 'none';
-  });
-}
+      if (!catalogue.classList.contains('active')) {
+        catalogue.classList.add('active');
+        catalogue.style.display = 'block';
+        searchContainer.style.display = 'flex';
+        requestAnimationFrame(() => {
+          catalogue.style.opacity = '1';
+          catalogue.style.transform = 'translateY(0)';
+        });
+      } else {
+        catalogue.classList.remove('active');
+        catalogue.style.opacity = '0';
+        catalogue.style.transform = 'translateY(80px)';
+        searchContainer.style.display = 'none';
+        setTimeout(() => catalogue.style.display = 'none', 600);
+      }
+    }
 
-document.getElementById('search-toggle').addEventListener('click', () => {
-  const input = document.getElementById('search-input');
-  input.style.display = input.style.display === 'none' ? 'inline-block' : 'none';
-  if (input.style.display === 'inline-block') input.focus();
-});
+    function toggleDetails(row) {
+      row.classList.toggle('expanded');
+    }
 
-function sortTable(colIndex) {
-  const table = document.getElementById('catalogue');
-  const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
+    let currentSort = { column: null, ascending: true };
+    function filterCatalogue() {
+      const input = document.getElementById('search-input');
+      const filter = input.value.toLowerCase();
+      const rows = document.querySelectorAll('.table-row:not(.table-head)');
 
-  if (currentSort.column === colIndex) {
-    currentSort.ascending = !currentSort.ascending;
-  } else {
-    currentSort.column = colIndex;
-    currentSort.ascending = true;
-  }
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(filter) ? '' : 'none';
+      });
+    }
 
-  const sorted = rows.sort((a, b) => {
-    const aText = a.children[colIndex].textContent.trim().toLowerCase();
-    const bText = b.children[colIndex].textContent.trim().toLowerCase();
-    return currentSort.ascending
-      ? aText.localeCompare(bText, undefined, { numeric: true })
-      : bText.localeCompare(aText, undefined, { numeric: true });
-  });
+    document.getElementById('search-toggle').addEventListener('click', () => {
+      const input = document.getElementById('search-input');
+      input.style.display = input.style.display === 'none' ? 'inline-block' : 'none';
+      if (input.style.display === 'inline-block') input.focus();
+    });
 
-  sorted.forEach(row => table.appendChild(row));
+    function sortTable(colIndex) {
+      const table = document.getElementById('catalogue');
+      const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
 
-  for (let i = 0; i < 5; i++) {
-    const arrow = document.getElementById(`arrow-${i}`);
-    arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
-  }
-}
+      if (currentSort.column === colIndex) {
+        currentSort.ascending = !currentSort.ascending;
+      } else {
+        currentSort.column = colIndex;
+        currentSort.ascending = true;
+      }
+
+      const sorted = rows.sort((a, b) => {
+        const aText = a.children[colIndex].textContent.trim().toLowerCase();
+        const bText = b.children[colIndex].textContent.trim().toLowerCase();
+        return currentSort.ascending
+          ? aText.localeCompare(bText, undefined, { numeric: true })
+          : bText.localeCompare(aText, undefined, { numeric: true });
+      });
+
+      sorted.forEach(row => table.appendChild(row));
+
+      // Update the arrows
+      for (let i = 0; i < 5; i++) {
+        const arrow = document.getElementById(`arrow-${i}`);
+        arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
+      }
+    }
   </script>
 </body>
 </html>
