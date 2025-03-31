@@ -240,7 +240,6 @@
           const link = document.getElementById("email-link");
           link.href = `mailto:${u}.${d}@gmail.${ext}`;
         </script>
-      </div>
     </div>
 
     <div class="container">
@@ -298,8 +297,6 @@ function toggleArchive() {
     setTimeout(() => catalogue.style.display = 'none', 600);
   }
 }
-}
-
 let currentSort = { column: null, ascending: true };
 function sortTable(colIndex) {
   const table = document.getElementById('catalogue');
