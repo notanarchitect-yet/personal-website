@@ -117,10 +117,15 @@
 
     /* The .collapsed class is toggled on <body> */
     /* Hide the social links and main container when collapsed */
-    .collapsed .header .social,
-    .collapsed main.container {
-      display: none;
-    }
+.collapsed main.container {
+  display: none;
+}
+
+/* Keep #email-link visible, hide other links */
+.collapsed .header .social a:not(#email-link) {
+  display: none;
+}
+
 
     /* Also change the .archive's style when collapsed => moves to normal flow (top) */
     .collapsed .archive {
