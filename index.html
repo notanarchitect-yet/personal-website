@@ -27,6 +27,7 @@
       color: #111;
       padding: 0 30px;
       cursor: crosshair;
+      transition: all 0.5s ease;
     }
 
     /* Generic links & archive button */
@@ -79,11 +80,13 @@
       justify-content: space-between;
       align-items: flex-start;
       padding: 2rem 0 1rem;
+      transition: all 0.3s ease;
     }
     .social {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      transition: all 0.3s ease;
     }
     .social a {
       margin-bottom: 0.5rem;
@@ -92,12 +95,14 @@
       display: flex;
       justify-content: space-between;
       padding: 1rem 0;
+      transition: all 0.3s ease;
     }
     .content {
       width: 70%;
+      transition: all 0.3s ease;
     }
 
-    /* Archive button initially at bottom-left (fixed) */
+    /* Archive button at bottom-left by default */
     .archive {
       position: fixed;
       bottom: 2rem;
@@ -110,11 +115,17 @@
       transition: all 0.5s ease;
     }
 
-    /* When the archive is opened, we remove fixed positioning
-       so it flows above the catalogue, aligned with 3rd column */
-    .archive.archive-open {
+    /* The .collapsed class is toggled on <body> */
+    /* Hide the social links and main container when collapsed */
+    .collapsed .header .social,
+    .collapsed main.container {
+      display: none;
+    }
+
+    /* Also change the .archive's style when collapsed => moves to normal flow (top) */
+    .collapsed .archive {
       position: static;
-      margin-top: 1rem; /* up to you */
+      margin-top: 1rem;
     }
 
     .catalogue {
@@ -159,12 +170,13 @@
       padding-top: 1rem;
     }
 
-    /* Search container is hidden by default. We show it only after toggling. */
+    /* Search container hidden by default; shown once archive is toggled. */
     #search-container {
-      display: none; /* hidden by default */
+      display: none;
       align-items: center;
       gap: 10px;
-      margin-left: 25%; /* approximate alignment with 3rd column */
+      margin-left: 15%; /* approximate alignment with 3rd column */
+      transition: all 0.3s ease;
     }
     #search-toggle {
       background: none;
@@ -205,7 +217,6 @@
       .table-row {
         min-width: 600px;
       }
-      /* On mobile, the archive button won't be at bottom if you'd like */
       .archive {
         left: 20px;
         bottom: 1rem;
@@ -215,7 +226,6 @@
 </head>
 <body>
   <div class="wrapper">
-
     <header class="header">
       <div>Mattia De Lotto</div>
       <div class="social">
@@ -240,9 +250,7 @@
       </div>
     </main>
 
-    <!-- Archive button (fixed bottom-left by default),
-         then when toggled, we remove position: fixed & show search -->
-    <footer class="archive" id="footer-bar">
+    <footer class="archive" id="archive-bar">
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
         Archive
         <span class="arrow-icon">
@@ -264,7 +272,6 @@
     </footer>
 
     <div class="catalogue" id="catalogue">
-      <!-- Table Head -->
       <div class="table-row table-head">
         <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
         <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
@@ -297,7 +304,7 @@
         </div>
       </div>
 
-      <!-- 003 -->
+      <!-- 003 - no details -->
       <div class="table-row">
         <div>003</div>
         <div>+House</div>
@@ -307,7 +314,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 004 -->
+      <!-- 004 - no details -->
       <div class="table-row">
         <div>004</div>
         <div>Save the Kiln!</div>
@@ -317,7 +324,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 005 -->
+      <!-- 005 - no details -->
       <div class="table-row">
         <div>005</div>
         <div>Reconstructions</div>
@@ -327,7 +334,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 006 with details -->
+      <!-- 006 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>006</div>
         <div>In continuity</div>
@@ -340,7 +347,7 @@
         </div>
       </div>
 
-      <!-- 007 -->
+      <!-- 007 - no details -->
       <div class="table-row">
         <div>007</div>
         <div>Portes Obertes</div>
@@ -350,7 +357,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 008 -->
+      <!-- 008 - no details -->
       <div class="table-row">
         <div>008</div>
         <div>Beyond urban</div>
@@ -360,7 +367,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 009 with details -->
+      <!-- 009 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>009</div>
         <div>A new continuity</div>
@@ -373,7 +380,7 @@
         </div>
       </div>
 
-      <!-- 010 -->
+      <!-- 010 - no details -->
       <div class="table-row">
         <div>010</div>
         <div>The (im)possible palimpsest</div>
@@ -383,7 +390,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 011 -->
+      <!-- 011 - no details -->
       <div class="table-row">
         <div>011</div>
         <div>Post-extraction scenarios</div>
@@ -393,7 +400,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 012 -->
+      <!-- 012 - no details -->
       <div class="table-row">
         <div>012</div>
         <div>Transfigurations</div>
@@ -403,7 +410,7 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 013 with details -->
+      <!-- 013 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>013</div>
         <div>Park Apartment</div>
@@ -427,32 +434,31 @@
     });
 
     function toggleArchive() {
-      const catalogue = document.getElementById('catalogue');
+      // Toggle the 'collapsed' class on body
+      document.body.classList.toggle('collapsed');
+
       const archiveBtn = document.getElementById('archive-btn');
-      const archiveFooter = document.getElementById('footer-bar');
+      const catalogue = document.getElementById('catalogue');
       const searchContainer = document.getElementById('search-container');
-      
-      // Toggle the .active class on catalogue
-      const isActive = catalogue.classList.toggle('active');
+
       archiveBtn.classList.toggle('active');
+      const isActive = catalogue.classList.toggle('active');
 
       if (isActive) {
-        // Reveal the catalogue
+        // Show catalogue
         catalogue.style.display = 'block';
         requestAnimationFrame(() => {
           catalogue.style.opacity = '1';
           catalogue.style.transform = 'translateY(0)';
         });
-        // Move the archive to normal flow & show search
-        archiveFooter.classList.add('archive-open');
+        // Show search container next to Archive button
         searchContainer.style.display = 'flex';
       } else {
-        // Hide the catalogue
+        // Hide catalogue
         catalogue.style.opacity = '0';
         catalogue.style.transform = 'translateY(80px)';
         setTimeout(() => catalogue.style.display = 'none', 600);
-        // Put the archive back to fixed at bottom & hide search
-        archiveFooter.classList.remove('archive-open');
+        // Hide search
         searchContainer.style.display = 'none';
       }
     }
@@ -462,6 +468,7 @@
     }
 
     let currentSort = { column: null, ascending: true };
+
     function filterCatalogue() {
       const input = document.getElementById('search-input');
       const filter = input.value.toLowerCase();
