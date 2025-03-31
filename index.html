@@ -11,12 +11,8 @@
   <link rel="icon" type="image/png" href="/img/favicon.png" />
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: 'Source Code Pro', monospace;
@@ -30,7 +26,6 @@
       transition: all 0.5s ease;
     }
 
-    /* Generic links & archive button */
     a, button.archive-link {
       text-decoration: underline;
       color: #111;
@@ -50,7 +45,6 @@
       color: #555;
     }
 
-    /* Arrow icons */
     .arrow-icon {
       width: 18px;
       height: 18px;
@@ -69,7 +63,6 @@
       transform: rotate(45deg);
     }
 
-    /* Layout wrappers */
     .wrapper {
       display: flex;
       flex-direction: column;
@@ -102,86 +95,45 @@
       transition: all 0.3s ease;
     }
 
-    /* Archive button at bottom-left by default */
-    .archive {
+    /*
+      #bottom-block wraps:
+        footer.archive (Archive button + search container)
+        .catalogue
+      pinned at bottom initially, slides up when toggled
+    */
+    #bottom-block {
       position: fixed;
       bottom: 2rem;
       left: 30px;
-      z-index: 10;
+      transform: translateY(0);
+      transition: transform 0.6s ease;
+    }
+    /* Slide it up (adjust -300px as you prefer) */
+    #bottom-block.slide-up {
+      transform: translateY(-300px);
+    }
+
+    .archive-link {
+      display: inline-flex;
+      gap: 6px;
       font-size: 1rem;
+      align-items: center;
+    }
+
+    /* Container for archive button & search side by side */
+    footer.archive {
       display: flex;
       align-items: center;
       gap: 1rem;
       transition: all 0.5s ease;
     }
 
-    /* The .collapsed class is toggled on <body> */
-    /* Hide the social links and main container when collapsed */
-    .collapsed main.container {
-  display: none;
-}
-
-/* Keep #email-link visible, hide other links */
-.collapsed .header .social a:not(#email-link) {
-  display: none;
-}
-
-
-    /* Also change the .archive's style when collapsed => moves to normal flow (top) */
-    .collapsed .archive {
-      position: static;
-      margin-top: 1rem;
-    }
-
-    .catalogue {
-      display: none;
-      opacity: 0;
-      transform: translateY(80px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      overflow-x: auto;
-      padding-bottom: 3rem;
-    }
-    .catalogue.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .table-row {
-      display: grid;
-      grid-template-columns: 1fr 4fr 3fr 1fr 3fr 0.5fr;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #111;
-      align-items: center;
-      cursor: crosshair;
-    }
-    .table-row.expanded .details {
-      display: block;
-    }
-    .indicator {
-      font-size: 12px;
-      justify-self: center;
-    }
-    .table-row:not(.table-head):hover {
-      background-color: #111;
-      color: #fff;
-    }
-    .has-details {
-      cursor: pointer;
-    }
-    .details {
-      display: none;
-      grid-column: 1 / -1;
-      padding-top: 1rem;
-    }
-
-    /* Search container hidden by default; shown once archive is toggled. */
+    /* search container is hidden by default */
     #search-container {
       display: none;
       align-items: center;
       gap: 10px;
-      margin-left: 35%; /* approximate alignment with 3rd column */
-      transition: all 0.3s ease;
+      margin-left: 10px; /* or 15% if you want alignment with the 3rd column */
     }
     #search-toggle {
       background: none;
@@ -206,26 +158,52 @@
       border-bottom: 1px solid #111;
     }
 
-    @media (max-width: 768px) {
-      body {
-        padding: 0 20px;
-      }
-      .header,
-      main.container {
-        flex-direction: column;
-      }
-      .content,
-      .social {
-        width: 100%;
-        align-items: flex-start;
-      }
-      .table-row {
-        min-width: 600px;
-      }
-      .archive {
-        left: 20px;
-        bottom: 1rem;
-      }
+    .catalogue {
+      display: none;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      overflow-x: auto;
+      padding-bottom: 3rem;
+    }
+    .catalogue.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 4fr 3fr 1fr 3fr 0.5fr;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #111;
+      align-items: center;
+      cursor: crosshair;
+    }
+    .indicator {
+      font-size: 12px;
+      justify-self: center;
+    }
+    .details {
+      display: none;
+      grid-column: 1 / -1;
+      padding-top: 1rem;
+    }
+    .table-row.expanded .details {
+      display: block;
+    }
+    .table-row:not(.table-head):hover {
+      background-color: #111;
+      color: #fff;
+    }
+    .has-details {
+      cursor: pointer;
+    }
+
+    /* Hide social & main container on click */
+    .collapsed main.container,
+    .collapsed .header .social {
+      display: none;
     }
   </style>
 </head>
@@ -254,8 +232,11 @@
         <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
       </div>
     </main>
+  </div>
 
-    <footer class="archive" id="archive-bar">
+  <!-- pinned container holding archive+search + catalogue -->
+  <div id="bottom-block">
+    <footer class="archive">
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
         Archive
         <span class="arrow-icon">
@@ -286,7 +267,6 @@
         <div></div>
       </div>
 
-      <!-- 001 - no details -->
       <div class="table-row">
         <div>001</div>
         <div>Venetian Tale</div>
@@ -296,7 +276,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 002 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>002</div>
         <div>Palimpsest Tower</div>
@@ -309,7 +288,6 @@
         </div>
       </div>
 
-      <!-- 003 - no details -->
       <div class="table-row">
         <div>003</div>
         <div>+House</div>
@@ -319,7 +297,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 004 - no details -->
       <div class="table-row">
         <div>004</div>
         <div>Save the Kiln!</div>
@@ -329,7 +306,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 005 - no details -->
       <div class="table-row">
         <div>005</div>
         <div>Reconstructions</div>
@@ -339,7 +315,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 006 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>006</div>
         <div>In continuity</div>
@@ -352,7 +327,6 @@
         </div>
       </div>
 
-      <!-- 007 - no details -->
       <div class="table-row">
         <div>007</div>
         <div>Portes Obertes</div>
@@ -362,7 +336,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 008 - no details -->
       <div class="table-row">
         <div>008</div>
         <div>Beyond urban</div>
@@ -372,7 +345,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 009 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>009</div>
         <div>A new continuity</div>
@@ -385,7 +357,6 @@
         </div>
       </div>
 
-      <!-- 010 - no details -->
       <div class="table-row">
         <div>010</div>
         <div>The (im)possible palimpsest</div>
@@ -395,7 +366,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 011 - no details -->
       <div class="table-row">
         <div>011</div>
         <div>Post-extraction scenarios</div>
@@ -405,7 +375,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 012 - no details -->
       <div class="table-row">
         <div>012</div>
         <div>Transfigurations</div>
@@ -415,7 +384,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 013 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>013</div>
         <div>Park Apartment</div>
@@ -431,7 +399,7 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', () => {
       const emailLink = document.getElementById('email-link');
       const user = 'hello.mattiadelotto';
       const domain = 'gmail.com';
@@ -439,32 +407,46 @@
     });
 
     function toggleArchive() {
-      // Toggle the 'collapsed' class on body
+      // Add or remove 'collapsed' on body => hides main.container + social
       document.body.classList.toggle('collapsed');
 
-      const archiveBtn = document.getElementById('archive-btn');
-      const catalogue = document.getElementById('catalogue');
+      const bottomBlock = document.getElementById('bottom-block');
       const searchContainer = document.getElementById('search-container');
+      const catalogue = document.getElementById('catalogue');
+      const archiveBtn = document.getElementById('archive-btn');
 
-      archiveBtn.classList.toggle('active');
-      const isActive = catalogue.classList.toggle('active');
+      // If it's closed => open
+      if (!catalogue.classList.contains('active')) {
+        // Show search container immediately
+        searchContainer.style.display = 'flex';
 
-      if (isActive) {
-        // Show catalogue
+        // Fade in the catalogue
+        catalogue.classList.add('active');
         catalogue.style.display = 'block';
         requestAnimationFrame(() => {
           catalogue.style.opacity = '1';
           catalogue.style.transform = 'translateY(0)';
         });
-        // Show search container next to Archive button
-        searchContainer.style.display = 'flex';
+        archiveBtn.classList.add('active');
+
+        // Then slide the entire block up after a short delay
+        setTimeout(() => {
+          bottomBlock.classList.add('slide-up');
+        }, 300);
+
       } else {
-        // Hide catalogue
+        // closing
+        catalogue.classList.remove('active');
         catalogue.style.opacity = '0';
         catalogue.style.transform = 'translateY(80px)';
-        setTimeout(() => catalogue.style.display = 'none', 600);
-        // Hide search
+        archiveBtn.classList.remove('active');
+        setTimeout(() => {
+          catalogue.style.display = 'none';
+        }, 600);
+
+        // hide search container
         searchContainer.style.display = 'none';
+        bottomBlock.classList.remove('slide-up');
       }
     }
 
@@ -473,7 +455,6 @@
     }
 
     let currentSort = { column: null, ascending: true };
-
     function filterCatalogue() {
       const input = document.getElementById('search-input');
       const filter = input.value.toLowerCase();
@@ -513,10 +494,9 @@
           : bText.localeCompare(aText, undefined, { numeric: true });
       });
 
-      // Re-insert sorted rows
       sorted.forEach(row => table.appendChild(row));
 
-      // Update the arrow indicators
+      // Update the arrow
       for (let i = 0; i < 5; i++) {
         const arrow = document.getElementById(`arrow-${i}`);
         arrow.textContent = (i === colIndex)
