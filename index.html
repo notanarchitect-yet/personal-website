@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>info – mattia de lotto</title>
+  <meta name="description" content="Portfolio and information of Mattia De Lotto, Italian architectural designer currently based in Delft, the Netherlands.">
+  <link rel="preload" href="img/arrow-social.svg" as="image">
+  <link rel="preload" href="img/arrow-archive.svg" as="image">
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/img/favicon.png" />
 
@@ -31,6 +34,22 @@
     }
     a:hover { color: #555; }
 
+    button.archive-link {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+      font-size: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #111;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
+    button.archive-link:hover { color: #555; }
+
     .arrow-icon {
       width: 18px;
       height: 18px;
@@ -44,150 +63,62 @@
       transform: rotate(0deg);
     }
 
-    a:hover .arrow-icon img {
+    a:hover .arrow-icon img,
+    button.archive-link:hover .arrow-icon img {
       transform: rotate(45deg);
     }
 
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 2rem 0 1rem;
-    }
-
-    .social {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-
+    .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; padding: 2rem 0 1rem; }
+    .social { display: flex; flex-direction: column; align-items: flex-end; }
     .social a { margin-bottom: 0.5rem; }
 
-    .container {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 0;
-    }
+    main.container { display: flex; justify-content: space-between; padding: 1rem 0; }
+    .content { width: 70%; }
 
-    .content {
-      width: 70%;
-    }
+    .archive { font-size: 1rem; position: fixed; bottom: 2rem; left: 30px; z-index: 10; }
 
-    .archive {
-      font-size: 1rem;
-      position: fixed;
-      bottom: 2rem;
-      left: 30px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: #fff;
-      z-index: 10;
-    }
+    .collapsed .social a:not(#email-link), .collapsed .container { display: none; }
+    .collapsed .archive { position: static; margin-top: 2rem; }
 
-    .collapsed .social a:not(#email-link),
-    .collapsed .container {
-      display: none;
-    }
+    .catalogue { display: none; opacity: 0; transform: translateY(80px); transition: opacity 0.6s ease, transform 0.6s ease; overflow-x: auto; padding-bottom: 3rem; }
+    .catalogue.active { display: block; opacity: 1; transform: translateY(0); }
 
-    .collapsed .archive {
-      position: static;
-      margin-top: 2rem;
-    }
-
-    .catalogue {
-      display: none;
-      opacity: 0;
-      transform: translateY(80px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      overflow-x: auto;
-      padding-bottom: 3rem;
-    }
-
-    .catalogue.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .table-row {
-      display: grid;
-      grid-template-columns: 1fr 4fr 3fr 1fr 3fr;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #111;
-    }
-
-    .table-head {
-      font-weight: 400;
-      cursor: pointer;
-    }
+    .table-row { display: grid; grid-template-columns: 1fr 4fr 3fr 1fr 3fr; padding: 0.5rem 0; border-bottom: 1px solid #111; }
+    .table-head { font-weight: 400; cursor: pointer; }
 
     @media (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .container {
-        flex-direction: column;
-      }
-
-      .content {
-        width: 100%;
-      }
-
-      .social {
-        align-items: flex-start;
-      }
-
-      .catalogue {
-        overflow-x: auto;
-      }
-
-      .table-row {
-        min-width: 600px;
-      }
+      body { padding: 0 20px; }
+      .header, main.container { flex-direction: column; }
+      .content, .social { width: 100%; align-items: flex-start; }
+      .table-row { min-width: 600px; }
+      .archive { left: 20px; bottom: 1rem; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <div class="header">
+    <header class="header">
       <div>Mattia De Lotto</div>
       <div class="social">
-        <a href="https://www.instagram.com/mattiadelotto/" target="_blank">Instagram<span class="arrow-icon"><img src="img/arrow-social.svg" alt=""></span></a>
-        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank">LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt=""></span></a>
-        <a id="email-link">Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt=""></span></a>
-        <script>
-          const u = "hello";
-          const d = "mattiadelotto";
-          const ext = "com";
-          const link = document.getElementById("email-link");
-          link.href = `mailto:${u}.${d}@gmail.${ext}`;
-        </script>
+        <a href="https://www.instagram.com/mattiadelotto/" target="_blank">Instagram<span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span></a>
+        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank">LinkedIn<span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span></a>
+        <a id="email-link" style="cursor:pointer;">Contact<span class="arrow-icon"><img src="img/arrow-social.svg" alt="Email link icon"></span></a>
       </div>
-    </div>
+    </header>
 
-    <div class="container">
+    <main class="container">
       <div class="content">
-        <p>Mattia De Lotto is an Italian architectural designer currently based in Delft, the Netherlands. He completed his Bachelor's Degree in Architecture at Iuav University of Venice and is now finishing his Master's at the Faculty of Architecture at TU Delft, where he's currently working on his graduation thesis.</p>
-        <p>Currently he is working at the Faculty of Architecture at TU Delft as an assistant to the research project Port City Future.</p>
-        <p>He has worked first at GEZA Architettura in Udine (Italy) and then majoral·tissino architects in Barcelona (Spain), gaining experience on a variety of projects across different scales and contexts.</p>
-        <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
-      </div>
-    </div>
+  <p>Mattia De Lotto is an Italian architectural designer currently based in Delft, the Netherlands. He completed his Bachelor's Degree in Architecture at Iuav University of Venice and is now finishing his Master's at the Faculty of Architecture at TU Delft, where he's currently working on his graduation thesis.</p>
+  <p>Currently he is working at the Faculty of Architecture at TU Delft as an assistant to the research project Port City Future.</p>
+  <p>He has worked first at GEZA Architettura in Udine (Italy) and then majoral·tissino architects in Barcelona (Spain), gaining experience on a variety of projects across different scales and contexts.</p>
+  <p>His latest research project, "The (Im)possible Palimpsest", reflects on Piranesi’s Campo Marzio and is set to be published by Drawing Matter.</p>
+</div>
+    </main>
 
-    <div class="archive">
-      <a class="archive-link" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt=""></span></a>
-    </div>
+    <footer class="archive">
+      <button class="archive-link" onclick="toggleArchive()">Archive<span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span></button>
+    </footer>
 
     <div class="catalogue" id="catalogue">
       <div class="table-row table-head">
@@ -197,69 +128,74 @@
         <div onclick="sortTable(3)">Year <span id="arrow-3"></span></div>
         <div onclick="sortTable(4)">Context <span id="arrow-4"></span></div>
       </div>
-        <div class="table-row"><div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div></div>
-        <div class="table-row"><div>002</div><div>Palimpsest Tower</div><div>Pavilion</div><div>2020</div><div>Competition</div></div>
-  <div class="table-row"><div>003</div><div>+House</div><div>House and Atelier</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
-        <div class="table-row"><div>004</div><div>Save the Kiln!</div><div>Restoration of national Heritage site</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
-        <div class="table-row"><div>005</div><div>Reconstructions</div><div>School and Restoration of collapsed church</div><div>2022</div><div>Academic (graduation project - Iuav Venice)</div></div>
-        <div class="table-row"><div>006</div><div>In continuity</div><div>Pavilion and heritage restoration</div><div>2022</div><div>Competition</div></div>
-        <div class="table-row"><div>007</div><div>Portes Obertes</div><div>Restoration of Castle in Llinars del Valles</div><div>2023</div><div>Competition @majoral·tissino architects</div></div>
-        <div class="table-row"><div>008</div><div>Beyond urban</div><div>Architectural and urban restoration</div><div>2023</div><div>Academic (TU Delft)</div></div>
-        <div class="table-row"><div>009</div><div>A new continuity</div><div>Masterplan for Lignano Sabbiadoro Waterfront</div><div>2024</div><div>Competition</div></div>
-        <div class="table-row"><div>010</div><div>The (im)possible palimpsest</div><div>Research on Piranesi's Campo Marzio</div><div>2024</div><div>Academic (TU Delft)</div></div>
-        <div class="table-row"><div>011</div><div>Post-extraction scenarios</div><div>Underground mine</div><div>2024</div><div>Academic (TU Delft)</div></div>
-        <div class="table-row"><div>012</div><div>Transfigurations</div><div>Master Thesis</div><div>2024-ongoing</div><div>Academic (TU Delft)</div></div>
-
+      <div class="table-row"><div>001</div><div>Venetian Tale</div><div>Pavilion</div><div>2020</div><div>Academic (Iuav Venice)</div></div>
+<div class="table-row"><div>002</div><div>Palimpsest Tower</div><div>Pavilion</div><div>2020</div><div>Competition</div></div>
+<div class="table-row"><div>003</div><div>+House</div><div>House and Atelier</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
+<div class="table-row"><div>004</div><div>Save the Kiln!</div><div>Restoration of national Heritage site</div><div>2021</div><div>Academic (Iuav Venice)</div></div>
+<div class="table-row"><div>005</div><div>Reconstructions</div><div>School and Restoration of collapsed church</div><div>2022</div><div>Academic (graduation project - Iuav Venice)</div></div>
+<div class="table-row"><div>006</div><div>In continuity</div><div>Pavilion and heritage restoration</div><div>2022</div><div>Competition</div></div>
+<div class="table-row"><div>007</div><div>Portes Obertes</div><div>Restoration of Castle in Llinars del Valles</div><div>2023</div><div>Competition @majoral·tissino architects</div></div>
+<div class="table-row"><div>008</div><div>Beyond urban</div><div>Architectural and urban restoration</div><div>2023</div><div>Academic (TU Delft)</div></div>
+<div class="table-row"><div>009</div><div>A new continuity</div><div>Masterplan for Lignano Sabbiadoro Waterfront</div><div>2024</div><div>Competition</div></div>
+<div class="table-row"><div>010</div><div>The (im)possible palimpsest</div><div>Research on Piranesi's Campo Marzio</div><div>2024</div><div>Academic (TU Delft)</div></div>
+<div class="table-row"><div>011</div><div>Post-extraction scenarios</div><div>Underground mine</div><div>2024</div><div>Academic (TU Delft)</div></div>
+<div class="table-row"><div>012</div><div>Transfigurations</div><div>Master Thesis</div><div>2024-ongoing</div><div>Academic (TU Delft)</div></div>
     </div>
   </div>
 
   <script>
-    function toggleArchive() {
-      document.body.classList.toggle('collapsed');
-      const catalogue = document.getElementById('catalogue');
+    document.addEventListener('DOMContentLoaded', function() {
+  const emailLink = document.getElementById("email-link");
+  const email = "hello.mattiadelotto@gmail.com";
+  emailLink.href = `mailto:${email}`;
+});
 
-      if (!catalogue.classList.contains('active')) {
-        catalogue.classList.add('active');
-        catalogue.style.display = 'block';
-        requestAnimationFrame(() => {
-          catalogue.style.opacity = '1';
-          catalogue.style.transform = 'translateY(0)';
-        });
-      } else {
-        catalogue.classList.remove('active');
-        catalogue.style.opacity = '0';
-        catalogue.style.transform = 'translateY(80px)';
-        setTimeout(() => catalogue.style.display = 'none', 600);
-      }
-    }
+function toggleArchive() {
+  document.body.classList.toggle('collapsed');
+  const catalogue = document.getElementById('catalogue');
 
-    let currentSort = { column: null, ascending: true };
-    function sortTable(colIndex) {
-      const table = document.getElementById('catalogue');
-      const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
+  if (!catalogue.classList.contains('active')) {
+    catalogue.classList.add('active');
+    catalogue.style.display = 'block';
+    requestAnimationFrame(() => {
+      catalogue.style.opacity = '1';
+      catalogue.style.transform = 'translateY(0)';
+    });
+  } else {
+    catalogue.classList.remove('active');
+    catalogue.style.opacity = '0';
+    catalogue.style.transform = 'translateY(80px)';
+    setTimeout(() => catalogue.style.display = 'none', 600);
+  }
+}
 
-      if (currentSort.column === colIndex) {
-        currentSort.ascending = !currentSort.ascending;
-      } else {
-        currentSort.column = colIndex;
-        currentSort.ascending = true;
-      }
+let currentSort = { column: null, ascending: true };
+function sortTable(colIndex) {
+  const table = document.getElementById('catalogue');
+  const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
 
-      const sorted = rows.sort((a, b) => {
-        const aText = a.children[colIndex].textContent.trim().toLowerCase();
-        const bText = b.children[colIndex].textContent.trim().toLowerCase();
-        return currentSort.ascending
-          ? aText.localeCompare(bText, undefined, { numeric: true })
-          : bText.localeCompare(aText, undefined, { numeric: true });
-      });
+  if (currentSort.column === colIndex) {
+    currentSort.ascending = !currentSort.ascending;
+  } else {
+    currentSort.column = colIndex;
+    currentSort.ascending = true;
+  }
 
-      sorted.forEach(row => table.appendChild(row));
+  const sorted = rows.sort((a, b) => {
+    const aText = a.children[colIndex].textContent.trim().toLowerCase();
+    const bText = b.children[colIndex].textContent.trim().toLowerCase();
+    return currentSort.ascending
+      ? aText.localeCompare(bText, undefined, { numeric: true })
+      : bText.localeCompare(aText, undefined, { numeric: true });
+  });
 
-      for (let i = 0; i < 5; i++) {
-        const arrow = document.getElementById(`arrow-${i}`);
-        arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
-      }
-    }
+  sorted.forEach(row => table.appendChild(row));
+
+  for (let i = 0; i < 5; i++) {
+    const arrow = document.getElementById(`arrow-${i}`);
+    arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
+  }
+}
   </script>
 </body>
 </html>
