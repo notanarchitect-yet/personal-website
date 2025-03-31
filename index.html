@@ -11,8 +11,12 @@
   <link rel="icon" type="image/png" href="/img/favicon.png" />
 
   <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       margin: 0;
       font-family: 'Source Code Pro', monospace;
@@ -39,7 +43,9 @@
       padding: 0;
       font-size: inherit;
     }
-    a:hover, button.archive-link:hover, .table-head:hover { color: #555; }
+    a:hover, button.archive-link:hover, .table-head:hover {
+      color: #555;
+    }
 
     .arrow-icon {
       width: 18px;
@@ -53,25 +59,61 @@
       display: block;
       transform: rotate(0deg);
     }
-
     a:hover .arrow-icon img,
     button.archive-link:hover .arrow-icon img,
     button.archive-link.active .arrow-icon img {
       transform: rotate(45deg);
     }
 
-    .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
-    .header { display: flex; justify-content: space-between; align-items: flex-start; padding: 2rem 0 1rem; }
-    .social { display: flex; flex-direction: column; align-items: flex-end; }
-    .social a { margin-bottom: 0.5rem; }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2rem 0 1rem;
+    }
+    .social {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .social a {
+      margin-bottom: 0.5rem;
+    }
 
-    main.container { display: flex; justify-content: space-between; padding: 1rem 0; }
-    .content { width: 70%; }
+    main.container {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+    .content {
+      width: 70%;
+    }
 
-    .archive { font-size: 1rem; position: fixed; bottom: 2rem; left: 30px; z-index: 10; }
+    /* 
+      The .archive no longer uses position: fixed; 
+      so that the search container can be on the same line
+    */
+    .archive {
+      font-size: 1rem;
+      margin-top: 2rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1rem; /* space between Archive button and search container */
+    }
 
-    .collapsed .social a:not(#email-link), .collapsed .container { display: none; }
-    .collapsed .archive { position: static; margin-top: 2rem; }
+    .collapsed .social a:not(#email-link),
+    .collapsed .container {
+      display: none;
+    }
+    .collapsed .archive {
+      margin-top: 2rem;
+    }
 
     .catalogue {
       display: none;
@@ -95,13 +137,16 @@
       align-items: center;
       cursor: crosshair;
     }
+    /* Expand details if row is expanded */
     .table-row.expanded .details {
       display: block;
     }
+
     .indicator {
       font-size: 12px;
       justify-self: center;
     }
+
     .table-row:not(.table-head):hover {
       background-color: #111;
       color: #fff;
@@ -116,8 +161,40 @@
       padding-top: 1rem;
     }
 
+    /* Search container inside .archive */
+    #search-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 15%; /* approximate alignment with the 3rd column (adjust as needed) */
+    }
+    #search-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+    }
+    #search-toggle img {
+      width: 20px;
+      height: 20px;
+    }
+    #search-input {
+      display: none;
+      margin-left: 10px;
+      padding: 0;
+      font-family: inherit;
+      font-size: 16px;
+      border: none;
+      background: transparent;
+      color: #111;
+      outline: none;
+      border-bottom: 1px solid #111;
+    }
+
     @media (max-width: 768px) {
-      body { padding: 0 20px; }
+      body {
+        padding: 0 20px;
+      }
       .header,
       main.container {
         flex-direction: column;
@@ -131,8 +208,7 @@
         min-width: 600px;
       }
       .archive {
-        left: 20px;
-        bottom: 1rem;
+        margin-top: 1rem;
       }
     }
   </style>
@@ -142,14 +218,14 @@
     <header class="header">
       <div>Mattia De Lotto</div>
       <div class="social">
-        <a href="https://www.instagram.com/mattiadelotto/" target="_blank">Instagram
-          <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
+        <a href="https://www.instagram.com/mattiadelotto/" target="_blank">
+          Instagram <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
         </a>
-        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank">LinkedIn
-          <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
+        <a href="https://www.linkedin.com/in/mattia-de-lotto/" target="_blank">
+          LinkedIn <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
         </a>
-        <a id="email-link" style="cursor:pointer;">Contact
-          <span class="arrow-icon"><img src="img/arrow-social.svg" alt="Email link icon"></span>
+        <a id="email-link" style="cursor:pointer;">
+          Contact <span class="arrow-icon"><img src="img/arrow-social.svg" alt="Email link icon"></span>
         </a>
       </div>
     </header>
@@ -163,28 +239,25 @@
       </div>
     </main>
 
+    <!-- The footer bar now has both the Archive button and search container side by side -->
     <footer class="archive">
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
         Archive
-        <span class="arrow-icon">
-          <img src="img/arrow-archive.svg" alt="Toggle archive">
-        </span>
+        <span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span>
       </button>
-    </footer>
 
-    <!-- This search container is absolute positioned, you can adjust if needed -->
-    <div id="search-container" style="display:none; position: absolute; bottom: 2rem; left: calc(30px + 1fr + 4fr + 1.5rem); align-items: center; gap: 10px; z-index: 10;">
-      <button id="search-toggle" style="background: none; border: none; cursor: pointer; outline: none;">
-        <img src="img/search-icon.svg" alt="Search" style="width: 20px; height: 20px;">
-      </button>
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Find a project..."
-        style="display:none; margin-left: 10px; padding: 0; font-family: inherit; font-size: 16px; border: none; background: transparent; color: #111; outline: none; border-bottom: 1px solid #111;"
-        onkeyup="filterCatalogue()"
-      >
-    </div>
+      <div id="search-container">
+        <button id="search-toggle">
+          <img src="img/search-icon.svg" alt="Search" />
+        </button>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Find a project..."
+          onkeyup="filterCatalogue()"
+        />
+      </div>
+    </footer>
 
     <div class="catalogue" id="catalogue">
       <div class="table-row table-head">
@@ -196,7 +269,6 @@
         <div></div>
       </div>
 
-      <!-- 001 - no details -->
       <div class="table-row">
         <div>001</div>
         <div>Venetian Tale</div>
@@ -206,7 +278,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 002 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>002</div>
         <div>Palimpsest Tower</div>
@@ -214,14 +285,11 @@
         <div>2020</div>
         <div>Competition</div>
         <div class="indicator">●</div>
-
-        <!-- nested details -->
         <div class="details">
           <p>Competition for ArkxSite in collaboration with Alessandra D'Acunto.</p>
         </div>
       </div>
 
-      <!-- 003 - no details -->
       <div class="table-row">
         <div>003</div>
         <div>+House</div>
@@ -231,7 +299,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 004 - no details -->
       <div class="table-row">
         <div>004</div>
         <div>Save the Kiln!</div>
@@ -241,7 +308,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 005 - no details -->
       <div class="table-row">
         <div>005</div>
         <div>Reconstructions</div>
@@ -251,7 +317,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 006 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>006</div>
         <div>In continuity</div>
@@ -259,13 +324,11 @@
         <div>2022</div>
         <div>Competition</div>
         <div class="indicator">●</div>
-
         <div class="details">
           <p>Competition for ReuseItaly in collaboration with Alessandra D'Acunto and Edoardo Ambrosio.</p>
         </div>
       </div>
 
-      <!-- 007 - no details -->
       <div class="table-row">
         <div>007</div>
         <div>Portes Obertes</div>
@@ -275,7 +338,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 008 - no details -->
       <div class="table-row">
         <div>008</div>
         <div>Beyond urban</div>
@@ -285,7 +347,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 009 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>009</div>
         <div>A new continuity</div>
@@ -293,13 +354,11 @@
         <div>2024</div>
         <div>Competition</div>
         <div class="indicator">●</div>
-
         <div class="details">
           <p>Competition for Terraviva in collaboration with Alessandra D'Acunto.</p>
         </div>
       </div>
 
-      <!-- 010 - no details -->
       <div class="table-row">
         <div>010</div>
         <div>The (im)possible palimpsest</div>
@@ -309,7 +368,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 011 - no details -->
       <div class="table-row">
         <div>011</div>
         <div>Post-extraction scenarios</div>
@@ -319,7 +377,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 012 - no details -->
       <div class="table-row">
         <div>012</div>
         <div>Transfigurations</div>
@@ -329,7 +386,6 @@
         <div class="indicator">○</div>
       </div>
 
-      <!-- 013 - with details -->
       <div class="table-row has-details" onclick="toggleDetails(this)">
         <div>013</div>
         <div>Park Apartment</div>
@@ -337,7 +393,6 @@
         <div>2024-ongoing</div>
         <div>Professional</div>
         <div class="indicator">●</div>
-
         <div class="details">
           <p>This is a placeholder for project 13 additional content.</p>
         </div>
@@ -357,14 +412,12 @@
       document.body.classList.toggle('collapsed');
       const catalogue = document.getElementById('catalogue');
       const archiveBtn = document.getElementById('archive-btn');
-      const searchContainer = document.getElementById('search-container');
-
       archiveBtn.classList.toggle('active');
 
+      // Show/hide the catalogue
       if (!catalogue.classList.contains('active')) {
         catalogue.classList.add('active');
         catalogue.style.display = 'block';
-        searchContainer.style.display = 'flex';
         requestAnimationFrame(() => {
           catalogue.style.opacity = '1';
           catalogue.style.transform = 'translateY(0)';
@@ -373,7 +426,6 @@
         catalogue.classList.remove('active');
         catalogue.style.opacity = '0';
         catalogue.style.transform = 'translateY(80px)';
-        searchContainer.style.display = 'none';
         setTimeout(() => catalogue.style.display = 'none', 600);
       }
     }
@@ -396,6 +448,7 @@
 
     document.getElementById('search-toggle').addEventListener('click', () => {
       const input = document.getElementById('search-input');
+      // Toggle the input's visibility
       input.style.display = input.style.display === 'none' ? 'inline-block' : 'none';
       if (input.style.display === 'inline-block') input.focus();
     });
@@ -404,6 +457,7 @@
       const table = document.getElementById('catalogue');
       const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
 
+      // Toggle ascending/descending
       if (currentSort.column === colIndex) {
         currentSort.ascending = !currentSort.ascending;
       } else {
@@ -411,6 +465,7 @@
         currentSort.ascending = true;
       }
 
+      // Sort rows
       const sorted = rows.sort((a, b) => {
         const aText = a.children[colIndex].textContent.trim().toLowerCase();
         const bText = b.children[colIndex].textContent.trim().toLowerCase();
@@ -419,12 +474,15 @@
           : bText.localeCompare(aText, undefined, { numeric: true });
       });
 
+      // Re-insert sorted rows
       sorted.forEach(row => table.appendChild(row));
 
-      // Update the arrows
+      // Update the arrow indicators
       for (let i = 0; i < 5; i++) {
         const arrow = document.getElementById(`arrow-${i}`);
-        arrow.textContent = i === colIndex ? (currentSort.ascending ? '↑' : '↓') : '';
+        arrow.textContent = i === colIndex
+          ? (currentSort.ascending ? '↑' : '↓')
+          : '';
       }
     }
   </script>
