@@ -48,6 +48,7 @@
     .social .arrow-icon img,
 .archive .arrow-icon img {
   transform: rotate(0deg);
+  transition: transform 0.3s ease;
 }
 
     .wrapper {
@@ -71,6 +72,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: flex-start;
+  gap: 0.5rem;
 }
 
     .header .social a { margin-bottom: 0.5rem; }
@@ -89,6 +92,7 @@
   left: 30px;
   background-color: #fff;
   z-index: 10;
+  transition: transform 0.3s ease;
 }
 
     .collapsed .archive {
@@ -227,6 +231,7 @@
 .archive a:hover .arrow-icon img,
 .archive.active .arrow-icon img {
   transform: rotate(45deg);
+  transition: transform 0.3s ease;
 }
 
 $1
