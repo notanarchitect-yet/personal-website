@@ -83,17 +83,20 @@ document.addEventListener('DOMContentLoaded', function () {
   const lbNext = document.getElementById('lb-next');
   const lbImg = document.getElementById('lightbox-img');
 
-  let images = Array.from(document.querySelectorAll('.image-gallery img'));
-  let currentIndex = 0;
+let images = [];
+let currentIndex = 0;
 
-  images.forEach((img, i) => {
-    img.dataset.index = i;
-    img.addEventListener('click', (e) => {
-      e.stopPropagation();
-      currentIndex = i;
-      showLightbox();
-    });
+document.querySelectorAll('.image-gallery img').forEach((img) => {
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const gallery = img.closest('.image-gallery');
+    images = Array.from(gallery.querySelectorAll('img'));
+    currentIndex = images.indexOf(img);
+
+    showLightbox();
   });
+});
 
   function showLightbox() {
     lbImg.src = images[currentIndex].src;
