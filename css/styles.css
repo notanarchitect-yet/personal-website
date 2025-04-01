@@ -169,17 +169,17 @@ main.container {
 
 /* optional .image-gallery inside .details */
 .details .image-gallery {
-  display: flex;       /* side-by-side layout */
-  flex-wrap: nowrap;   /* no wrapping onto a new line (optional) */
-  gap: 1rem;           /* space between images */
+  display: flex;
+  flex-wrap: nowrap; /* or wrap if you want them to wrap on small screens */
+  gap: 1rem;
 }
 
 .details .image-gallery img {
   /* enforce the same fixed height on each image */
-  height: 100px;             /* or any px value you like */
-  width: auto;               /* preserve aspect ratio horizontally */
-  object-fit: contain;         /* fit images to max height 100px */
-  flex: 0 0 auto;            /* ensures images don't shrink below their content size */
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+  flex: 0 0 auto;
   display: block;
 }
 
