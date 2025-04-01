@@ -272,18 +272,32 @@ main.container {
   body {
     padding: 0 20px;
   }
+
   .header, main.container {
     flex-direction: column;
   }
+
   .content, .social {
     width: 100%;
     align-items: flex-start;
   }
-  .table-row {
-    min-width: 600px;
+
+  .catalogue {
+    overflow-x: auto;
   }
+
+  .table-row {
+    min-width: 700px; /* or whatever width fits your content */
+  }
+
+  .table-row > div {
+    padding-right: 1rem;
+    white-space: nowrap;
+  }
+
   .archive {
     left: 20px;
     bottom: 1rem;
   }
 }
+
