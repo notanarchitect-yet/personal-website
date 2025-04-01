@@ -388,14 +388,14 @@
         mouseY < imgRect.top ||
         mouseY > imgRect.bottom
       ) {
-        overlay.style.cursor = "url('img/esc-lightbox.svg'), auto";
+        overlay.style.cursor = "url('img/esc-lightbox.png'), auto";
       } else {
         // INSIDE bounding box => check left / right half
         const midpointX = (imgRect.left + imgRect.right) / 2;
         if (mouseX < midpointX) {
-          overlay.style.cursor = "url('img/arrow-left-lightbox.svg'), auto";
+          overlay.style.cursor = "url('img/arrow-left-lightbox.png'), auto";
         } else {
-          overlay.style.cursor = "url('img/arrow-right-lightbox.svg'), auto";
+          overlay.style.cursor = "url('img/arrow-right-lightbox.png'), auto";
         }
       }
     });
