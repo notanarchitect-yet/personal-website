@@ -165,6 +165,10 @@ Hide the social links and main container when collapsed
   grid-column: 1 / -1;
   padding-top: 1rem;
 }
+.details p {
+  margin-bottom: 0.3rem; /* or a smaller value / zero */
+}
+
 .details .image-gallery {
   display: flex;       /* side-by-side layout */
   flex-wrap: nowrap;   /* no wrapping onto a new line (optional) */
