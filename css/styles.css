@@ -271,6 +271,7 @@ main.container {
 @media (max-width: 768px) {
   body {
     padding: 0 20px;
+    padding-bottom: 80px; /* prevents content from hiding behind archive */
   }
 
   .header {
