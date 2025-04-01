@@ -192,7 +192,7 @@ main.container {
   display: none;
   align-items: center;
   gap: 10px;
-  margin-left: 34%;
+  margin-left: 28%;
   transition: all 0.3s ease;
 }
 #search-toggle {
