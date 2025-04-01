@@ -1,4 +1,3 @@
-<script>
 document.addEventListener('DOMContentLoaded', function () {
   // 1) Obscure email
   const emailLink = document.getElementById('email-link');
@@ -165,4 +164,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-</script>
