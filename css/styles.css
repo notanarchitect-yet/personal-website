@@ -273,13 +273,21 @@ main.container {
     padding: 0 20px;
   }
 
-  .header, main.container {
-    flex-direction: column;
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   .content, .social {
-    width: 100%;
-    align-items: flex-start;
+    width: auto;
+  }
+
+  .social {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
 
   .catalogue {
@@ -287,14 +295,14 @@ main.container {
   }
 
   .table-row {
-    min-width: 700px; /* or whatever width fits your content */
+    min-width: 700px; /* ensure grid structure holds on narrow screens */
   }
 
-.table-row > div {
-  padding-right: 1rem;
-  white-space: normal;   /* ⬅️ Allow text to wrap */
-  word-break: break-word; /* ⬅️ Optional: break long words */
-}
+  .table-row > div {
+    padding-right: 1rem;
+    white-space: normal;     /* allow wrapping */
+    word-break: break-word;  /* prevent overflow */
+  }
 
   .archive {
     left: 20px;
