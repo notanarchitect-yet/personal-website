@@ -290,10 +290,11 @@ main.container {
     min-width: 700px; /* or whatever width fits your content */
   }
 
-  .table-row > div {
-    padding-right: 1rem;
-    white-space: nowrap;
-  }
+.table-row > div {
+  padding-right: 1rem;
+  white-space: normal;   /* ⬅️ Allow text to wrap */
+  word-break: break-word; /* ⬅️ Optional: break long words */
+}
 
   .archive {
     left: 20px;
