@@ -236,7 +236,6 @@ main.container {
 #lb-close, #lb-prev, #lb-next {
   background: none;
   border: none;
-  cursor: pointer;
   position: absolute; /* same positions as before */
   z-index: 10000;
 }

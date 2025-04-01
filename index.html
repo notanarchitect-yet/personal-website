@@ -372,6 +372,33 @@
         hideLightbox();
       }
     });
+    // ========== NEW CURSOR LOGIC ==========
+    overlay.addEventListener('mousemove', (e) => {
+      if (overlay.style.display === 'none') return; // if hidden, do nothing
+
+      // bounding box for the enlarged image
+      const imgRect = lbImg.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // OUTSIDE the image => ESC
+      if (
+        mouseX < imgRect.left ||
+        mouseX > imgRect.right ||
+        mouseY < imgRect.top ||
+        mouseY > imgRect.bottom
+      ) {
+        overlay.style.cursor = "url('img/esc-lighbox.svg'), auto";
+      } else {
+        // INSIDE bounding box => check left / right half
+        const midpointX = (imgRect.left + imgRect.right) / 2;
+        if (mouseX < midpointX) {
+          overlay.style.cursor = "url('img/arrow-left-lighbox.svg'), auto";
+        } else {
+          overlay.style.cursor = "url('img/arrow-right-lighbox.svg'), auto";
+        }
+      }
+    });
   });
 </script>
 </body>
