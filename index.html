@@ -321,108 +321,87 @@
       });
 
       // 6) Lightbox overlay for .image-gallery images
-      const overlay  = document.getElementById('lightbox-overlay');
-      const lbClose  = document.getElementById('lb-close');
-      const lbPrev   = document.getElementById('lb-prev');
-      const lbNext   = document.getElementById('lb-next');
-      const lbImg    = document.getElementById('lightbox-img');
+document.addEventListener('DOMContentLoaded', function() {
+  const overlay  = document.getElementById('lightbox-overlay');
+  const lbClose  = document.getElementById('lb-close');
+  const lbPrev   = document.getElementById('lb-prev');
+  const lbNext   = document.getElementById('lb-next');
+  const lbImg    = document.getElementById('lightbox-img');
 
-      let images = [];
-      let currentIndex = 0;
+  let images = [];
+  let currentIndex = 0;
 
-      // gather all .image-gallery images
-      images = Array.from(document.querySelectorAll('.image-gallery img'));
-      images.forEach((img, i) => {
-        img.dataset.index = i;
-        img.addEventListener('click', (e) => {
-          e.stopPropagation(); // avoid toggling the row
-          currentIndex = i;
-          showLightbox();
-        });
-      });
+  images = Array.from(document.querySelectorAll('.image-gallery img'));
+  images.forEach((img, i) => {
+    img.dataset.index = i;
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = i;
+      showLightbox();
+    });
+  });
 
-      function showLightbox() {
-        lbImg.src = images[currentIndex].src;
-        overlay.style.display = 'flex';
-      }
-      function hideLightbox() {
-        overlay.style.display = 'none';
-      }
-      function showNext() {
-        currentIndex = (currentIndex + 1) % images.length;
-        lbImg.src = images[currentIndex].src;
-      }
-      function showPrev() {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        lbImg.src = images[currentIndex].src;
-      }
-
-      lbClose.addEventListener('click', hideLightbox);
-      lbPrev.addEventListener('click', showPrev);
-      lbNext.addEventListener('click', showNext);
-
-overlay.addEventListener('click', (e) => {
-  // If overlay is hidden, do nothing
-  if (overlay.style.display === 'none') return;
-
-  // bounding box of the enlarged image
-  const imgRect = lbImg.getBoundingClientRect();
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-
-  // Check if user clicked outside the image
-  if (
-    mouseX < imgRect.left ||
-    mouseX > imgRect.right ||
-    mouseY < imgRect.top ||
-    mouseY > imgRect.bottom
-  ) {
-    // Outside => close the lightbox
-    hideLightbox();
-  } else {
-    // Inside bounding box => decide left or right half
-    const midpointX = (imgRect.left + imgRect.right) / 2;
-    if (mouseX < midpointX) {
-      showPrev();
-    } else {
-      showNext();
-    }
+  function showLightbox() {
+    lbImg.src = images[currentIndex].src;
+    overlay.style.display = 'flex';
   }
-});
+  function hideLightbox() {
+    overlay.style.display = 'none';
+  }
+  function showNext() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lbImg.src = images[currentIndex].src;
+  }
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lbImg.src = images[currentIndex].src;
+  }
 
-    // === ESCAPE KEY SUPPORT ===
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' || e.keyCode === 27) {
-        hideLightbox();
-      }
-    });
-    // ========== NEW CURSOR LOGIC ==========
-    overlay.addEventListener('mousemove', (e) => {
-      if (overlay.style.display === 'none') return; // if hidden, do nothing
+  lbClose.addEventListener('click', hideLightbox);
+  lbPrev.addEventListener('click', showPrev);
+  lbNext.addEventListener('click', showNext);
 
-      // bounding box for the enlarged image
-      const imgRect = lbImg.getBoundingClientRect();
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+  overlay.addEventListener('click', (e) => {
+    if (overlay.style.display === 'none') return;
+    const imgRect = lbImg.getBoundingClientRect();
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
 
-      // OUTSIDE the image => ESC
-      if (
-        mouseX < imgRect.left ||
-        mouseX > imgRect.right ||
-        mouseY < imgRect.top ||
-        mouseY > imgRect.bottom
-      ) {
-        overlay.style.cursor = "url('img/esc-lightbox.png'), 15 15, auto";
+    if (mouseX < imgRect.left || mouseX > imgRect.right || mouseY < imgRect.top || mouseY > imgRect.bottom) {
+      hideLightbox();
+    } else {
+      const midpointX = (imgRect.left + imgRect.right) / 2;
+      if (mouseX < midpointX) {
+        showPrev();
       } else {
-        // INSIDE bounding box => check left / right half
-        const midpointX = (imgRect.left + imgRect.right) / 2;
-        if (mouseX < midpointX) {
-          overlay.style.cursor = "url('img/arrow-left-lightbox.png'), 15 15, auto";
-        } else {
-          overlay.style.cursor = "url('img/arrow-right-lightbox.png'), 15 15, auto";
-        }
+        showNext();
       }
-    });
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      hideLightbox();
+    }
+  });
+
+  overlay.addEventListener('mousemove', (e) => {
+    if (overlay.style.display === 'none') return;
+    const imgRect = lbImg.getBoundingClientRect();
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    const escCursor = "url('img/esc-lightbox.png') 15 15, pointer";
+    const leftCursor = "url('img/arrow-left-lightbox.png') 15 15, pointer";
+    const rightCursor = "url('img/arrow-right-lightbox.png') 15 15, pointer";
+
+    if (mouseX < imgRect.left || mouseX > imgRect.right || mouseY < imgRect.top || mouseY > imgRect.bottom) {
+      overlay.style.cursor = escCursor;
+    } else {
+      const midpointX = (imgRect.left + imgRect.right) / 2;
+      overlay.style.cursor = (mouseX < midpointX) ? leftCursor : rightCursor;
+    }
+  });
   });
 </script>
 </body>
