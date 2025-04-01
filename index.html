@@ -222,12 +222,22 @@
   </div>
 
   <!-- Lightbox overlay for enlarged images (hidden by default) -->
-  <div id="lightbox-overlay">
-    <button id="lb-close">&times;</button>
-    <button id="lb-prev">&#10094;</button>
-    <button id="lb-next">&#10095;</button>
-    <img id="lightbox-img" src="" alt="Enlarged image">
-  </div>
+<div id="lightbox-overlay">
+  <!-- close button with your esc-lightbox.svg -->
+  <button id="lb-close">
+    <img src="img/esc-lightbox.svg" alt="Close lightbox">
+  </button>
+  <!-- previous button with arrow-left-lightbox.svg -->
+  <button id="lb-prev">
+    <img src="img/arrow-left-lightbox.svg" alt="Previous image">
+  </button>
+  <!-- next button with arrow-right-lightbox.svg -->
+  <button id="lb-next">
+    <img src="img/arrow-right-lightbox.svg" alt="Next image">
+  </button>
+  <img id="lightbox-img" src="" alt="Enlarged image">
+</div>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
