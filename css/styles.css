@@ -234,17 +234,17 @@ main.container {
   max-height: 90%;
 }
 #lb-close, #lb-prev, #lb-next {
-  position: absolute;
   background: none;
-  color: #fff;
   border: none;
-  font-size: 2rem;
   cursor: pointer;
+  position: absolute; /* same positions as before */
   z-index: 10000;
 }
+
+/* If you want them in the same places as before: */
 #lb-close {
-  right: 2rem;
   top: 2rem;
+  right: 2rem;
 }
 #lb-prev {
   left: 2rem;
@@ -257,6 +257,14 @@ main.container {
   transform: translateY(-50%);
 }
 
+/* Now size your SVGs */
+#lb-close img,
+#lb-prev img,
+#lb-next img {
+  width: 28px;  /* pick a size you like */
+  height: 28px;
+  display: block;
+}
 /* =====================
    MOBILE
    ===================== */
