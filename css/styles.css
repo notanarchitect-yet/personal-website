@@ -165,6 +165,21 @@ Hide the social links and main container when collapsed
   grid-column: 1 / -1;
   padding-top: 1rem;
 }
+.details .image-gallery {
+  display: flex;       /* side-by-side layout */
+  flex-wrap: nowrap;   /* no wrapping onto a new line (optional) */
+  gap: 1rem;           /* space between images */
+}
+
+.details .image-gallery img {
+  /* enforce the same fixed height on each image */
+  height: 100px;             /* or any px value you like */
+  width: auto;               /* preserve aspect ratio horizontally */
+  object-fit: contain;         /* fit images to max height 100px */
+  flex: 0 0 auto;            /* ensures images don't shrink below their content size */
+  display: block;
+}
+
 
 /* Search container hidden by default; shown once archive is toggled. */
 #search-container {
