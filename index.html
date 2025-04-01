@@ -361,10 +361,34 @@
       lbPrev.addEventListener('click', showPrev);
       lbNext.addEventListener('click', showNext);
 
-    // click outside the image => hide
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) hideLightbox();
-    });
+overlay.addEventListener('click', (e) => {
+  // If overlay is hidden, do nothing
+  if (overlay.style.display === 'none') return;
+
+  // bounding box of the enlarged image
+  const imgRect = lbImg.getBoundingClientRect();
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+
+  // Check if user clicked outside the image
+  if (
+    mouseX < imgRect.left ||
+    mouseX > imgRect.right ||
+    mouseY < imgRect.top ||
+    mouseY > imgRect.bottom
+  ) {
+    // Outside => close the lightbox
+    hideLightbox();
+  } else {
+    // Inside bounding box => decide left or right half
+    const midpointX = (imgRect.left + imgRect.right) / 2;
+    if (mouseX < midpointX) {
+      showPrev();
+    } else {
+      showNext();
+    }
+  }
+});
 
     // === ESCAPE KEY SUPPORT ===
     document.addEventListener('keydown', (e) => {
@@ -399,34 +423,6 @@
         }
       }
     });
-overlay.addEventListener('click', (e) => {
-  // If overlay is hidden, do nothing
-  if (overlay.style.display === 'none') return;
-
-  // bounding box of the enlarged image
-  const imgRect = lbImg.getBoundingClientRect();
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-
-  // Check if user clicked outside the image
-  if (
-    mouseX < imgRect.left ||
-    mouseX > imgRect.right ||
-    mouseY < imgRect.top ||
-    mouseY > imgRect.bottom
-  ) {
-    // Outside => close the lightbox
-    hideLightbox();
-  } else {
-    // Inside bounding box => decide left or right half
-    const midpointX = (imgRect.left + imgRect.right) / 2;
-    if (mouseX < midpointX) {
-      showPrev();
-    } else {
-      showNext();
-    }
-  }
-});
   });
 </script>
 </body>
