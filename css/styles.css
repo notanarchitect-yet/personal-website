@@ -163,7 +163,7 @@ Hide the social links and main container when collapsed
 .details {
   display: none;
   grid-column: 1 / -1;
-  padding-top: 1rem;
+  padding-top: 0.3rem;
 }
 .details p {
   margin-bottom: 0.3rem; /* or a smaller value / zero */
