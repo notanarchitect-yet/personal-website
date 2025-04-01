@@ -1,0 +1,221 @@
+/* Basic Reset & Core Styles */
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  background-color: #fff;
+  color: #111;
+  padding: 0 30px;
+  cursor: crosshair;
+  transition: all 0.5s ease;
+}
+
+/* Generic links & archive button */
+a, button.archive-link {
+  text-decoration: underline;
+  color: #111;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+a:hover, button.archive-link:hover, .table-head:hover {
+  color: #555;
+}
+
+/* Arrow icons */
+.arrow-icon {
+  width: 18px;
+  height: 18px;
+}
+.arrow-icon img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  display: block;
+  transform: rotate(0deg);
+}
+a:hover .arrow-icon img,
+button.archive-link:hover .arrow-icon img,
+button.archive-link.active .arrow-icon img {
+  transform: rotate(45deg);
+}
+
+/* Layout wrappers */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 0 1rem;
+  transition: all 0.3s ease;
+}
+.social {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  transition: all 0.3s ease;
+}
+.social a {
+  margin-bottom: 0.5rem;
+}
+main.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+}
+.content {
+  width: 70%;
+  transition: all 0.3s ease;
+}
+
+/* Archive button at bottom-left by default */
+.archive {
+  position: fixed;
+  bottom: 2rem;
+  left: 30px;
+  z-index: 10;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.5s ease;
+}
+
+/*
+The .collapsed class is toggled on <body>
+Hide the social links and main container when collapsed
+*/
+.collapsed main.container {
+  display: none;
+}
+
+/* Keep #email-link visible, hide other links */
+.collapsed .header .social a:not(#email-link) {
+  display: none;
+}
+
+/* Also change the .archive's style when collapsed => moves to normal flow (top) */
+.collapsed .archive {
+  position: static;
+  margin-top: 1rem;
+}
+
+/* The catalogue and transitions */
+.catalogue {
+  display: none;
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  overflow-x: auto;
+  padding-bottom: 3rem;
+}
+.catalogue.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Table Rows */
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 4fr 3fr 1fr 3fr 0.5fr;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #111;
+  align-items: center;
+  cursor: crosshair;
+}
+.table-row.expanded .details {
+  display: block;
+}
+.indicator {
+  font-size: 12px;
+  justify-self: center;
+}
+.table-row:not(.table-head):hover {
+  background-color: #111;
+  color: #fff;
+}
+.has-details {
+  cursor: pointer;
+}
+.details {
+  display: none;
+  grid-column: 1 / -1;
+  padding-top: 1rem;
+}
+
+/* Search container hidden by default; shown once archive is toggled. */
+#search-container {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-left: 34%; /* approximate alignment with 3rd column */
+  transition: all 0.3s ease;
+}
+#search-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+#search-toggle img {
+  width: 20px;
+  height: 20px;
+}
+#search-input {
+  display: none;
+  margin-left: 10px;
+  padding: 0;
+  font-family: inherit;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  color: #111;
+  outline: none;
+  border-bottom: 1px solid #111;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 0 20px;
+  }
+  .header,
+  main.container {
+    flex-direction: column;
+  }
+  .content,
+  .social {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .table-row {
+    min-width: 600px;
+  }
+  .archive {
+    left: 20px;
+    bottom: 1rem;
+  }
+}
