@@ -6,21 +6,19 @@
   <title>info – mattia de lotto</title>
   <meta name="description" content="Portfolio and information of Mattia De Lotto, Italian architectural designer currently based in Delft, the Netherlands.">
   
-  <!-- Preload icons, fonts, and link your styles -->
+  <!-- Preload icons, fonts, etc. -->
   <link rel="preload" href="img/arrow-social.svg" as="image">
   <link rel="preload" href="img/arrow-archive.svg" as="image">
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css"> <!-- The external stylesheet -->
-  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+
+  <!-- Reference your external stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="wrapper">
-   <header class="header">
-  <div>
-    <a href="/" style="text-decoration: none; color: inherit;">
-      Mattia De Lotto
-    </a>
-  </div>
+    <header class="header">
+      <div>Mattia De Lotto</div>
       <div class="social">
         <a href="https://www.instagram.com/mattiadelotto/" target="_blank">
           Instagram <span class="arrow-icon"><img src="img/arrow-social.svg" alt="External link icon"></span>
@@ -45,12 +43,8 @@
 
     <footer class="archive" id="archive-bar">
       <button class="archive-link" id="archive-btn" onclick="toggleArchive()">
-        Archive
-        <span class="arrow-icon">
-          <img src="img/arrow-archive.svg" alt="Toggle archive">
-        </span>
+        Archive <span class="arrow-icon"><img src="img/arrow-archive.svg" alt="Toggle archive"></span>
       </button>
-
       <div id="search-container">
         <button id="search-toggle">
           <img src="img/search-icon.svg" alt="Search" />
@@ -64,7 +58,7 @@
       </div>
     </footer>
 
-    <div class="catalogue" id="catalogue">
+     <div class="catalogue" id="catalogue">
       <div class="table-row table-head">
         <div onclick="sortTable(0)">Code <span id="arrow-0"></span></div>
         <div onclick="sortTable(1)">Title <span id="arrow-1"></span></div>
@@ -96,8 +90,8 @@
     <p>Competition for ArkxSite in collaboration with Alessandra D'Acunto.</p>
     
     <div class="image-gallery">
-      <img src="img/palimpsest1.jpg" alt="Outside view">
-      <img src="img/palimpsest2.jpg" alt="Inside view">
+      <img src="img/palimpsest1.jpg" alt="Outside view" data-image-index="0">
+      <img src="img/palimpsest2.jpg" alt="Inside view" data-image-index="1">
     </div>
         </div>
       </div>
@@ -219,102 +213,147 @@
         <div class="details">
           <p>This is a placeholder for project 13 additional content.</p>
         </div>
-      </div>
+
     </div>
+  </div>
+
+  <!-- Lightbox overlay for enlarged images (hidden by default) -->
+  <div id="lightbox-overlay">
+    <button id="lb-close">&times;</button>
+    <button id="lb-prev">&#10094;</button>
+    <button id="lb-next">&#10095;</button>
+    <img id="lightbox-img" src="" alt="Enlarged image">
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // 1) Obscure email
       const emailLink = document.getElementById('email-link');
       const user = 'hello.mattiadelotto';
       const domain = 'gmail.com';
       emailLink.href = `mailto:${user}@${domain}`;
-    });
 
-    function toggleArchive() {
-      // Toggle the 'collapsed' class on body
-      document.body.classList.toggle('collapsed');
-
-      const archiveBtn = document.getElementById('archive-btn');
-      const catalogue = document.getElementById('catalogue');
+      // 2) Toggle Archive / Collapsed
+      const archiveBtn      = document.getElementById('archive-btn');
+      const catalogue       = document.getElementById('catalogue');
       const searchContainer = document.getElementById('search-container');
+      window.toggleArchive = function() {
+        document.body.classList.toggle('collapsed');
+        archiveBtn.classList.toggle('active');
+        const isActive = catalogue.classList.toggle('active');
 
-      archiveBtn.classList.toggle('active');
-      const isActive = catalogue.classList.toggle('active');
+        if (isActive) {
+          catalogue.style.display = 'block';
+          requestAnimationFrame(() => {
+            catalogue.style.opacity = '1';
+            catalogue.style.transform = 'translateY(0)';
+          });
+          searchContainer.style.display = 'flex';
+        } else {
+          catalogue.style.opacity = '0';
+          catalogue.style.transform = 'translateY(80px)';
+          setTimeout(() => catalogue.style.display = 'none', 600);
+          searchContainer.style.display = 'none';
+        }
+      };
 
-      if (isActive) {
-        // Show catalogue
-        catalogue.style.display = 'block';
-        requestAnimationFrame(() => {
-          catalogue.style.opacity = '1';
-          catalogue.style.transform = 'translateY(0)';
+      // 3) Expand .details
+      window.toggleDetails = function(row) {
+        row.classList.toggle('expanded');
+      };
+
+      // 4) Sorting
+      let currentSort = { column: null, ascending: true };
+      window.sortTable = function(colIndex) {
+        const rows = Array.from(catalogue.querySelectorAll('.table-row:not(.table-head)'));
+        if (currentSort.column === colIndex) {
+          currentSort.ascending = !currentSort.ascending;
+        } else {
+          currentSort.column = colIndex;
+          currentSort.ascending = true;
+        }
+        const sorted = rows.sort((a, b) => {
+          const aText = a.children[colIndex].textContent.trim().toLowerCase();
+          const bText = b.children[colIndex].textContent.trim().toLowerCase();
+          return currentSort.ascending
+            ? aText.localeCompare(bText, undefined, { numeric: true })
+            : bText.localeCompare(aText, undefined, { numeric: true });
         });
-        // Show search container next to Archive button
-        searchContainer.style.display = 'flex';
-      } else {
-        // Hide catalogue
-        catalogue.style.opacity = '0';
-        catalogue.style.transform = 'translateY(80px)';
-        setTimeout(() => catalogue.style.display = 'none', 600);
-        // Hide search
-        searchContainer.style.display = 'none';
-      }
-    }
+        sorted.forEach(row => catalogue.appendChild(row));
+        for (let i = 0; i < 5; i++) {
+          const arrow = document.getElementById(`arrow-${i}`);
+          arrow.textContent = (i === colIndex)
+            ? (currentSort.ascending ? '↑' : '↓')
+            : '';
+        }
+      };
 
-    function toggleDetails(row) {
-      row.classList.toggle('expanded');
-    }
+      // 5) Search/Filter
+      window.filterCatalogue = function() {
+        const input = document.getElementById('search-input');
+        const filter = input.value.toLowerCase();
+        const rows = document.querySelectorAll('.table-row:not(.table-head)');
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(filter) ? '' : 'none';
+        });
+      };
 
-    let currentSort = { column: null, ascending: true };
-    function filterCatalogue() {
-      const input = document.getElementById('search-input');
-      const filter = input.value.toLowerCase();
-      const rows = document.querySelectorAll('.table-row:not(.table-head)');
-
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(filter) ? '' : 'none';
+      // Toggling the search input
+      document.getElementById('search-toggle').addEventListener('click', () => {
+        const input = document.getElementById('search-input');
+        input.style.display = (input.style.display === 'none' || input.style.display === '') ? 'inline-block' : 'none';
+        if (input.style.display === 'inline-block') input.focus();
       });
-    }
 
-    document.getElementById('search-toggle').addEventListener('click', () => {
-      const input = document.getElementById('search-input');
-      // Toggle the input's visibility
-      input.style.display = (input.style.display === 'none' || input.style.display === '') ? 'inline-block' : 'none';
-      if (input.style.display === 'inline-block') input.focus();
+      // 6) Lightbox overlay for .image-gallery images
+      const overlay  = document.getElementById('lightbox-overlay');
+      const lbClose  = document.getElementById('lb-close');
+      const lbPrev   = document.getElementById('lb-prev');
+      const lbNext   = document.getElementById('lb-next');
+      const lbImg    = document.getElementById('lightbox-img');
+
+      let images = [];
+      let currentIndex = 0;
+
+      // gather all .image-gallery images
+      images = Array.from(document.querySelectorAll('.image-gallery img'));
+      images.forEach((img, i) => {
+        img.dataset.index = i;
+        img.addEventListener('click', (e) => {
+          e.stopPropagation(); // avoid toggling the row
+          currentIndex = i;
+          showLightbox();
+        });
+      });
+
+      function showLightbox() {
+        lbImg.src = images[currentIndex].src;
+        overlay.style.display = 'flex';
+      }
+      function hideLightbox() {
+        overlay.style.display = 'none';
+      }
+      function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        lbImg.src = images[currentIndex].src;
+      }
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        lbImg.src = images[currentIndex].src;
+      }
+
+      lbClose.addEventListener('click', hideLightbox);
+      lbPrev.addEventListener('click', showPrev);
+      lbNext.addEventListener('click', showNext);
+
+      // click outside the image => hide
+      overlay.addEventListener('click', (e) => {
+        if(e.target === overlay) {
+          hideLightbox();
+        }
+      });
     });
-
-    function sortTable(colIndex) {
-      const table = document.getElementById('catalogue');
-      const rows = Array.from(table.querySelectorAll('.table-row:not(.table-head)'));
-
-      // Toggle ascending/descending
-      if (currentSort.column === colIndex) {
-        currentSort.ascending = !currentSort.ascending;
-      } else {
-        currentSort.column = colIndex;
-        currentSort.ascending = true;
-      }
-
-      // Sort rows
-      const sorted = rows.sort((a, b) => {
-        const aText = a.children[colIndex].textContent.trim().toLowerCase();
-        const bText = b.children[colIndex].textContent.trim().toLowerCase();
-        return currentSort.ascending
-          ? aText.localeCompare(bText, undefined, { numeric: true })
-          : bText.localeCompare(aText, undefined, { numeric: true });
-      });
-
-      // Re-insert sorted rows
-      sorted.forEach(row => table.appendChild(row));
-
-      // Update the arrow indicators
-      for (let i = 0; i < 5; i++) {
-        const arrow = document.getElementById(`arrow-${i}`);
-        arrow.textContent = (i === colIndex)
-          ? (currentSort.ascending ? '↑' : '↓')
-          : '';
-      }
-    }
   </script>
 </body>
 </html>

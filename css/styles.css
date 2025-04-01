@@ -1,4 +1,6 @@
-/* Basic Reset & Core Styles */
+/* =====================
+   BASE & LAYOUT STYLES
+   ===================== */
 * {
   box-sizing: border-box;
 }
@@ -18,7 +20,18 @@ body {
   transition: all 0.5s ease;
 }
 
-/* Generic links & archive button */
+/* Archive, social, container toggles */
+.collapsed main.container {
+  display: none;
+}
+/* Keep #email-link visible, hide other links */
+.collapsed .header .social a:not(#email-link) {
+  display: none;
+}
+
+/* =====================
+   LINKS & ARROWS
+   ===================== */
 a, button.archive-link {
   text-decoration: underline;
   color: #111;
@@ -38,7 +51,6 @@ a:hover, button.archive-link:hover, .table-head:hover {
   color: #555;
 }
 
-/* Arrow icons */
 .arrow-icon {
   width: 18px;
   height: 18px;
@@ -57,7 +69,9 @@ button.archive-link.active .arrow-icon img {
   transform: rotate(45deg);
 }
 
-/* Layout wrappers */
+/* =====================
+   WRAPPER & HEADER
+   ===================== */
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -90,7 +104,9 @@ main.container {
   transition: all 0.3s ease;
 }
 
-/* Archive button at bottom-left by default */
+/* =====================
+   FOOTER ARCHIVE
+   ===================== */
 .archive {
   position: fixed;
   bottom: 2rem;
@@ -102,27 +118,14 @@ main.container {
   gap: 1rem;
   transition: all 0.5s ease;
 }
-
-/*
-The .collapsed class is toggled on <body>
-Hide the social links and main container when collapsed
-*/
-.collapsed main.container {
-  display: none;
-}
-
-/* Keep #email-link visible, hide other links */
-.collapsed .header .social a:not(#email-link) {
-  display: none;
-}
-
-/* Also change the .archive's style when collapsed => moves to normal flow (top) */
 .collapsed .archive {
   position: static;
   margin-top: 1rem;
 }
 
-/* The catalogue and transitions */
+/* =====================
+   CATALOGUE & TABLE
+   ===================== */
 .catalogue {
   display: none;
   opacity: 0;
@@ -136,8 +139,6 @@ Hide the social links and main container when collapsed
   opacity: 1;
   transform: translateY(0);
 }
-
-/* Table Rows */
 .table-row {
   display: grid;
   grid-template-columns: 1fr 4fr 3fr 1fr 3fr 0.5fr;
@@ -165,32 +166,28 @@ Hide the social links and main container when collapsed
   grid-column: 1 / -1;
   padding-top: 0.3rem;
 }
-.details p {
-  margin-bottom: 0.3rem; /* or a smaller value / zero */
-}
 
+/* optional .image-gallery inside .details */
 .details .image-gallery {
-  display: flex;       /* side-by-side layout */
-  flex-wrap: nowrap;   /* no wrapping onto a new line (optional) */
-  gap: 1rem;           /* space between images */
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.3rem;
 }
-
 .details .image-gallery img {
-  /* enforce the same fixed height on each image */
-  height: 100px;             /* or any px value you like */
-  width: auto;               /* preserve aspect ratio horizontally */
-  object-fit: contain;         /* fit images to max height 100px */
-  flex: 0 0 auto;            /* ensures images don't shrink below their content size */
-  display: block;
+  max-width: 100%;
+  height: auto;
+  flex: 0 0 auto;
+  object-fit: cover;
 }
 
-
-/* Search container hidden by default; shown once archive is toggled. */
+/* =====================
+   SEARCH SECTION
+   ===================== */
 #search-container {
   display: none;
   align-items: center;
   gap: 10px;
-  margin-left: 34%; /* approximate alignment with 3rd column */
+  margin-left: 34%;
   transition: all 0.3s ease;
 }
 #search-toggle {
@@ -216,17 +213,57 @@ Hide the social links and main container when collapsed
   border-bottom: 1px solid #111;
 }
 
-/* Mobile adjustments */
+/* =====================
+   LIGHTBOX OVERLAY
+   ===================== */
+#lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+#lightbox-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+}
+#lb-close, #lb-prev, #lb-next {
+  position: absolute;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10000;
+}
+#lb-close {
+  right: 2rem;
+  top: 2rem;
+}
+#lb-prev {
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#lb-next {
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* =====================
+   MOBILE
+   ===================== */
 @media (max-width: 768px) {
   body {
     padding: 0 20px;
   }
-  .header,
-  main.container {
+  .header, main.container {
     flex-direction: column;
   }
-  .content,
-  .social {
+  .content, .social {
     width: 100%;
     align-items: flex-start;
   }
