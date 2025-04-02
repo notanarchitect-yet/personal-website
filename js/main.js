@@ -9,59 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const archiveBtn = document.getElementById('archive-btn');
   const catalogue = document.getElementById('catalogue');
   const searchContainer = document.getElementById('search-container');
-  
   window.toggleArchive = function () {
-    document.body.classList.toggle('collapsed');
-    archiveBtn.classList.toggle('active');
-    const isActive = catalogue.classList.toggle('active');
-    const referenceBar = document.getElementById('reference-bar');
-
-    if (isActive) {
-      catalogue.style.display = 'block';
-      requestAnimationFrame(() => {
-        catalogue.style.opacity = '1';
-        catalogue.style.transform = 'translateY(0)';
-      });
-      searchContainer.style.display = 'flex';
-      if (referenceBar) referenceBar.style.display = 'none';
-    } else {
-      catalogue.style.opacity = '0';
-      catalogue.style.transform = 'translateY(80px)';
-      setTimeout(() => (catalogue.style.display = 'none'), 600);
-      searchContainer.style.display = 'none';
-      if (referenceBar) referenceBar.style.display = 'flex';
-    }
-  };
-
-
-
-  const referenceBtn = document.getElementById('reference-btn');
-  const reference = document.getElementById('reference');
-  const archiveBar = document.getElementById('archive-bar');
-  const searchContainer = document.getElementById('search-container');
-
-  window.toggleReference = function () {
-    referenceBtn.classList.toggle('active');
-    const isActive = reference.classList.toggle('active');
-
-    if (isActive) {
-      reference.style.display = 'block';
-      requestAnimationFrame(() => {
-        reference.style.opacity = '1';
-        reference.style.transform = 'translateY(0)';
-      });
-      if (archiveBar) archiveBar.style.display = 'none';
-      if (searchContainer) searchContainer.style.display = 'none';
-    } else {
-      reference.style.opacity = '0';
-      reference.style.transform = 'translateY(80px)';
-      setTimeout(() => (reference.style.display = 'none'), 600);
-      if (archiveBar) archiveBar.style.display = 'flex';
-    }
-  };
-
-
-// Original toggleArchive function replaced above
     document.body.classList.toggle('collapsed');
     archiveBtn.classList.toggle('active');
     const isActive = catalogue.classList.toggle('active');
