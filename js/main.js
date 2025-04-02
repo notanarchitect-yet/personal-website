@@ -6,27 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   emailLink.href = `mailto:${user}@${domain}`;
 
   // 2) Toggle Archive / Collapsed
-  // Reference toggle functionality
-  window.toggleReference = function () {
-    const referenceBtn = document.getElementById('reference-btn');
-    const reference = document.getElementById('reference');
-
-    referenceBtn.classList.toggle('active');
-    const isActive = reference.classList.toggle('active');
-
-    if (isActive) {
-      reference.style.display = 'block';
-      requestAnimationFrame(() => {
-        reference.style.opacity = '1';
-        reference.style.transform = 'translateY(0)';
-      });
-    } else {
-      reference.style.opacity = '0';
-      reference.style.transform = 'translateY(80px)';
-      setTimeout(() => (reference.style.display = 'none'), 600);
-    }
-  };
-
   const archiveBtn = document.getElementById('archive-btn');
   const catalogue = document.getElementById('catalogue');
   const searchContainer = document.getElementById('search-container');
