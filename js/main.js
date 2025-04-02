@@ -10,35 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const catalogue = document.getElementById('catalogue');
   const searchContainer = document.getElementById('search-container');
   
-  
-  const referenceBtn = document.getElementById('reference-btn');
-  const reference = document.getElementById('reference');
-
-  window.toggleReference = function () {
-    document.body.classList.toggle('collapsed');
-    referenceBtn.classList.toggle('active');
-    const isActive = reference.classList.toggle('active');
-    const archiveBar = document.getElementById('archive-bar');
-    const searchContainer = document.getElementById('search-container');
-
-    if (isActive) {
-      reference.style.display = 'block';
-      requestAnimationFrame(() => {
-        reference.style.opacity = '1';
-        reference.style.transform = 'translateY(0)';
-      });
-      if (archiveBar) archiveBar.style.display = 'none';
-      if (searchContainer) searchContainer.style.display = 'none';
-    } else {
-      reference.style.opacity = '0';
-      reference.style.transform = 'translateY(80px)';
-      setTimeout(() => (reference.style.display = 'none'), 600);
-      if (archiveBar) archiveBar.style.display = 'flex';
-    }
-  };
-
-
-window.toggleArchive = function () {
+  window.toggleArchive = function () {
     document.body.classList.toggle('collapsed');
     archiveBtn.classList.toggle('active');
     const isActive = catalogue.classList.toggle('active');
