@@ -171,7 +171,7 @@ main.container {
 /* optional .image-gallery inside .details */
 .details .image-gallery {
   display: flex;
-  flex-wrap: nowrap; /* or wrap if you want them to wrap on small screens */
+  flex-wrap: wrap; /* or nowrap if you do not want them to wrap on small screens */
   gap: 0.3rem;
 }
 
