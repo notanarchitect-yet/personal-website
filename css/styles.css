@@ -162,6 +162,9 @@ main.container {
 .table-row:hover a {
   color: #fff;
 }
+.table-row:hover .arrow-icon img {
+  filter: brightness(0) invert(1);
+}
 .has-details {
   cursor: pointer;
 }
