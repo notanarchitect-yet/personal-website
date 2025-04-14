@@ -159,6 +159,9 @@ main.container {
   background-color: #111;
   color: #fff;
 }
+.table-row:hover a {
+  color: #fff;
+}
 .has-details {
   cursor: pointer;
 }
